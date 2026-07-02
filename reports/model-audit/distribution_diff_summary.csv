@@ -1,0 +1,10 @@
+,Train Mean,Realtime Mean,Diff %,Status
+rr,9.33941717791411,2.6060000000000003,72.09675989029938,High Shift
+rain3,25.186325966850852,,,High Shift
+rain7,58.41652892561984,,,High Shift
+rain14,115.64944903581267,,,High Shift
+rh_avg,81.27018030513176,78.4,3.531652439253316,Normal
+temp_range,9.046666666666667,,,High Shift
+rainfall_anomaly,50.076687116564415,,,High Shift
+month,6.528925619834711,,,High Shift
+day_of_year,183.27272727272728,,,High Shift

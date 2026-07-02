@@ -1,0 +1,44 @@
+{
+  "versi": "3.0",
+  "deskripsi": "Pemetaan 3 tingkat risiko banjir ke rekomendasi komoditas hortikultura.",
+  "aturan": {
+    "Rendah": {
+      "rentang_fri": [0, 33],
+      "deskripsi": "Kondisi normal. Semua komoditas tersedia. Prioritaskan tanaman bernilai ekonomi tinggi.",
+      "komoditas_direkomendasikan": [
+        "cabai_rawit", "cabai_merah", "tomat", "melon", "semangka",
+        "mentimun", "jagung_manis", "selada", "terong", "kacang_panjang",
+        "pare", "seledri", "kemangi", "bayam", "sawi", "kangkung", "talas"
+      ],
+      "kriteria_seleksi": "Semua komoditas cocok. Diurutkan berdasarkan nilai ekonomi.",
+      "keputusan_tanam": "tanam_normal"
+    },
+    "Sedang": {
+      "rentang_fri": [34, 66],
+      "deskripsi": "Risiko meningkat. Pilih komoditas dengan toleransi banjir sedang hingga tinggi.",
+      "komoditas_direkomendasikan": [
+        "kangkung", "bayam", "sawi", "talas", "kacang_panjang",
+        "pare", "terong", "cabai_rawit", "cabai_merah", "mentimun", "kemangi"
+      ],
+      "komoditas_dihindari": [
+        "melon", "semangka", "tomat", "jagung_manis", "selada", "seledri"
+      ],
+      "kriteria_seleksi": "Toleransi banjir sedang-tinggi. Siklus panen pendek lebih diutamakan.",
+      "keputusan_tanam": "tanam_dengan_pencegahan"
+    },
+    "Tinggi": {
+      "rentang_fri": [67, 100],
+      "deskripsi": "Risiko banjir signifikan. Hanya komoditas tahan banjir yang direkomendasikan.",
+      "komoditas_direkomendasikan": [
+        "kangkung", "talas", "bayam", "sawi"
+      ],
+      "komoditas_dihindari": [
+        "melon", "semangka", "tomat", "jagung_manis", "selada", "seledri",
+        "cabai_rawit", "cabai_merah", "mentimun", "terong", "kacang_panjang",
+        "pare", "kemangi"
+      ],
+      "kriteria_seleksi": "Hanya tanaman dengan toleransi banjir tinggi/sangat tinggi.",
+      "keputusan_tanam": "tunda_atau_lindungi"
+    }
+  }
+}

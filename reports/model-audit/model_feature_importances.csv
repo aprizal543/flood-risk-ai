@@ -1,0 +1,10 @@
+Feature,Importance,Corr FRI,Interpretation
+rr,0.028317526883783885,0.6429711998566627,Low influence
+rain3,0.2801376604207675,,Data missing
+rain7,0.45846273697506357,,Data missing
+rain14,0.014742627359870013,,Data missing
+rh_avg,0.15830494204876913,0.8570011593020505,Moderate influence
+temp_range,0.026131647999146614,,Data missing
+rainfall_anomaly,0.027075543834365782,,Data missing
+month,0.0019408705720051543,,Data missing
+day_of_year,0.004886443906228331,,Data missing

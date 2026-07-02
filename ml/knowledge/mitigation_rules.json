@@ -1,0 +1,108 @@
+{
+  "versi": "3.0",
+  "deskripsi": "Pemetaan 3 tingkat risiko banjir ke tindakan mitigasi praktis.",
+  "aturan": {
+    "Rendah": {
+      "rentang_fri": [0, 33],
+      "urgensi": "rutin",
+      "tindakan": [
+        {
+          "id": "routine_drainage",
+          "aksi": "Inspeksi rutin saluran drainase",
+          "deskripsi": "Periksa dan bersihkan saluran drainase secara berkala",
+          "prioritas": 1
+        },
+        {
+          "id": "soil_monitoring",
+          "aksi": "Monitoring kelembaban tanah",
+          "deskripsi": "Pantau kondisi kelembaban tanah untuk perencanaan irigasi",
+          "prioritas": 2
+        }
+      ]
+    },
+    "Sedang": {
+      "rentang_fri": [34, 66],
+      "urgensi": "pencegahan",
+      "tindakan": [
+        {
+          "id": "clear_drainage",
+          "aksi": "Bersihkan saluran drainase",
+          "deskripsi": "Pastikan semua saluran drainase bersih dari penyumbatan",
+          "prioritas": 1
+        },
+        {
+          "id": "raised_beds",
+          "aksi": "Siapkan bedengan tinggi",
+          "deskripsi": "Tinggikan bedengan tanam 20-30 cm untuk mengurangi risiko genangan",
+          "prioritas": 2
+        },
+        {
+          "id": "mulching",
+          "aksi": "Aplikasi mulsa",
+          "deskripsi": "Pasang mulsa untuk mencegah erosi permukaan tanah",
+          "prioritas": 3
+        },
+        {
+          "id": "weather_monitoring",
+          "aksi": "Pantau prakiraan cuaca",
+          "deskripsi": "Cek prakiraan cuaca BMKG secara harian untuk antisipasi eskalasi",
+          "prioritas": 4
+        },
+        {
+          "id": "harvest_ready",
+          "aksi": "Percepat panen tanaman siap",
+          "deskripsi": "Panen tanaman yang sudah mendekati matang untuk mengurangi kerugian",
+          "prioritas": 5
+        }
+      ]
+    },
+    "Tinggi": {
+      "rentang_fri": [67, 100],
+      "urgensi": "segera",
+      "tindakan": [
+        {
+          "id": "activate_drainage",
+          "aksi": "Aktifkan sistem drainase darurat",
+          "deskripsi": "Buka semua pintu air dan pastikan pompa drainase berfungsi maksimal",
+          "prioritas": 1
+        },
+        {
+          "id": "emergency_harvest",
+          "aksi": "Panen darurat",
+          "deskripsi": "Segera panen semua tanaman yang sudah matang atau mendekati matang",
+          "prioritas": 2
+        },
+        {
+          "id": "flood_barriers",
+          "aksi": "Pasang penghalang banjir",
+          "deskripsi": "Gunakan karung pasir atau barrier untuk melindungi area tanam utama",
+          "prioritas": 3
+        },
+        {
+          "id": "delay_planting",
+          "aksi": "Tunda penanaman baru",
+          "deskripsi": "Jangan menanam komoditas baru sampai risiko banjir menurun",
+          "prioritas": 4
+        },
+        {
+          "id": "prepare_recovery",
+          "aksi": "Siapkan material pemulihan",
+          "deskripsi": "Siapkan benih pengganti, pupuk, dan pestisida untuk pemulihan pasca banjir",
+          "prioritas": 5
+        },
+        {
+          "id": "protect_seedlings",
+          "aksi": "Lindungi persemaian",
+          "deskripsi": "Pindahkan bibit dan persemaian ke lokasi yang lebih tinggi",
+          "prioritas": 6
+        },
+        {
+          "id": "document_conditions",
+          "aksi": "Dokumentasi kondisi lahan",
+          "deskripsi": "Foto dan catat kondisi lahan untuk klaim asuransi atau bantuan",
+          "prioritas": 7
+        }
+      ]
+    }
+  }
+}

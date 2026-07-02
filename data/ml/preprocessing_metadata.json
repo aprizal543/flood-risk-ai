@@ -1,0 +1,56 @@
+{
+  "features": [
+    "rr",
+    "rain3",
+    "rain7",
+    "rain14",
+    "rh_avg",
+    "temp_range",
+    "rainfall_anomaly",
+    "month",
+    "day_of_year"
+  ],
+  "target": "fri",
+  "train_rows": 580,
+  "test_rows": 146,
+  "train_ratio": 0.8,
+  "split_method": "chronological (no shuffle)",
+  "imputation": {
+    "strategy": "median",
+    "columns": {
+      "rr": 0.8,
+      "tn": 23.6,
+      "tx": 32.9,
+      "tavg": 27.4,
+      "rh_avg": 81.0,
+      "temp_range": 9.200000000000003,
+      "rainfall_anomaly": 50.61349693251533,
+      "rain3": 14.30000000000003
+    }
+  },
+  "missing_before": {
+    "rr": 74,
+    "tn": 4,
+    "tx": 2,
+    "tavg": 5,
+    "rh_avg": 5,
+    "temp_range": 6,
+    "rainfall_anomaly": 74,
+    "rain3": 2,
+    "rain7": 0,
+    "rain14": 0,
+    "month": 0,
+    "day_of_year": 0
+  },
+  "missing_after": {
+    "rr": 0,
+    "rain3": 0,
+    "rain7": 0,
+    "rain14": 0,
+    "rh_avg": 0,
+    "temp_range": 0,
+    "rainfall_anomaly": 0,
+    "month": 0,
+    "day_of_year": 0
+  }
+}

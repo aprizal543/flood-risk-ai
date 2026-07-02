@@ -1,0 +1,89 @@
+{
+  "total_records": 726,
+  "total_columns": 17,
+  "columns": [
+    "tanggal",
+    "tn",
+    "tx",
+    "tavg",
+    "rh_avg",
+    "rr",
+    "source_file",
+    "month",
+    "day_of_year",
+    "rain3",
+    "rain3_valid_days",
+    "rain7",
+    "rain7_valid_days",
+    "rain14",
+    "rain14_valid_days",
+    "temp_range",
+    "rainfall_anomaly"
+  ],
+  "date_range": {
+    "start": "2024-07-01",
+    "end": "2026-06-26"
+  },
+  "nan_counts": {
+    "tanggal": 0,
+    "tn": 4,
+    "tx": 2,
+    "tavg": 5,
+    "rh_avg": 5,
+    "rr": 74,
+    "source_file": 0,
+    "month": 0,
+    "day_of_year": 0,
+    "rain3": 2,
+    "rain3_valid_days": 0,
+    "rain7": 0,
+    "rain7_valid_days": 0,
+    "rain14": 0,
+    "rain14_valid_days": 0,
+    "temp_range": 6,
+    "rainfall_anomaly": 74
+  },
+  "feature_groups": {
+    "raw": [
+      "rr",
+      "tavg",
+      "tx",
+      "tn",
+      "rh_avg"
+    ],
+    "temporal": [
+      "month",
+      "day_of_year"
+    ],
+    "rainfall_derived": [
+      "rain3",
+      "rain7",
+      "rain14"
+    ],
+    "temperature_derived": [
+      "temp_range"
+    ],
+    "anomaly": [
+      "rainfall_anomaly"
+    ],
+    "audit": [
+      "rain3_valid_days",
+      "rain7_valid_days",
+      "rain14_valid_days"
+    ]
+  },
+  "rolling_window_config": {
+    "rain3": {
+      "window": 3,
+      "min_periods": 1
+    },
+    "rain7": {
+      "window": 7,
+      "min_periods": 1
+    },
+    "rain14": {
+      "window": 14,
+      "min_periods": 1
+    }
+  }
+}
