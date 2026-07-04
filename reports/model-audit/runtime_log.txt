@@ -1,0 +1,4 @@
+Command: python scripts/audit_1_6_validate.py
+Status: PASS
+Warning observed: scikit-learn InconsistentVersionWarning for artifact 1.6.1 loaded with runtime 1.8.0.
+Report: D:\flood-risk-ai\reports\model-audit\audit_1_6_runtime_validation.json

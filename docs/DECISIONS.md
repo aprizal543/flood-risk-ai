@@ -216,3 +216,43 @@
 **Dampak**:
 - `model=rf` adalah default di semua endpoint.
 - LSTM tersedia via `?model=lstm` untuk pengujian dan penelitian.
+
+
+# DEC-013 — Database Platform
+
+Status
+
+Accepted
+
+Decision
+
+FloodRisk AI uses Supabase as the primary backend database.
+
+Reason
+
+- Managed PostgreSQL
+- Built-in Authentication
+- Row Level Security
+- Easy integration with Next.js
+- Excellent support for REST and SDK
+- Suitable for future scalability
+
+Scope
+
+Supabase stores:
+
+- User accounts
+- Authentication data
+- User preferences
+- AI conversation history
+- Application metadata
+
+Supabase does NOT store:
+
+- Realtime weather data
+- Flood Risk predictions
+- Open-Meteo responses
+
+Reason
+
+Predictions are generated in realtime and are intentionally not persisted.

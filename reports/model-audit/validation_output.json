@@ -1,0 +1,175 @@
+{
+  "api_response_subset": {
+    "cuaca": {
+      "latitude": 0.507,
+      "longitude": 101.447,
+      "rh_avg": 83.0,
+      "rr": 14.0,
+      "tanggal": "2026-01-14",
+      "tmax": 32.0,
+      "tmin": 24.0
+    },
+    "fri": 56.54,
+    "hari_historis": 13,
+    "model": "rf",
+    "status": "berhasil",
+    "tingkat_risiko": "Risiko Sedang",
+    "wilayah": "Pekanbaru"
+  },
+  "checks": [
+    {
+      "actual": 200,
+      "expected": 200,
+      "label": "http_status",
+      "pass": true
+    },
+    {
+      "actual": 14,
+      "expected": 14,
+      "label": "provider_history_days",
+      "pass": true
+    },
+    {
+      "actual": [
+        "rr",
+        "rain3",
+        "rain7",
+        "rain14",
+        "rh_avg",
+        "temp_range",
+        "rainfall_anomaly",
+        "month",
+        "day_of_year"
+      ],
+      "expected": [
+        "rr",
+        "rain3",
+        "rain7",
+        "rain14",
+        "rh_avg",
+        "temp_range",
+        "rainfall_anomaly",
+        "month",
+        "day_of_year"
+      ],
+      "label": "feature_order_builder",
+      "pass": true
+    },
+    {
+      "actual": [
+        "rr",
+        "rain3",
+        "rain7",
+        "rain14",
+        "rh_avg",
+        "temp_range",
+        "rainfall_anomaly",
+        "month",
+        "day_of_year"
+      ],
+      "expected": [
+        "rr",
+        "rain3",
+        "rain7",
+        "rain14",
+        "rh_avg",
+        "temp_range",
+        "rainfall_anomaly",
+        "month",
+        "day_of_year"
+      ],
+      "label": "feature_order_rf",
+      "pass": true
+    },
+    {
+      "actual": {
+        "day_of_year": 14.0,
+        "month": 1.0,
+        "rain14": 123.0,
+        "rain3": 41.0,
+        "rain7": 73.0,
+        "rainfall_anomaly": 62.0,
+        "rh_avg": 83.0,
+        "rr": 14.0,
+        "temp_range": 8.0
+      },
+      "expected": {
+        "day_of_year": 14.0,
+        "month": 1.0,
+        "rain14": 123.0,
+        "rain3": 41.0,
+        "rain7": 73.0,
+        "rainfall_anomaly": 62.0,
+        "rh_avg": 83.0,
+        "rr": 14.0,
+        "temp_range": 8.0
+      },
+      "label": "feature_vector_to_rf",
+      "pass": true
+    },
+    {
+      "actual": 56.54,
+      "expected": 56.54,
+      "label": "api_fri_matches_direct",
+      "pass": true
+    },
+    {
+      "actual": "Risiko Sedang",
+      "expected": "Risiko Sedang",
+      "label": "api_risk_matches_direct",
+      "pass": true
+    },
+    {
+      "actual": 13,
+      "expected": 13,
+      "label": "api_history_count",
+      "pass": true
+    },
+    {
+      "actual": 14.0,
+      "expected": 14.0,
+      "label": "api_weather_rr",
+      "pass": true
+    }
+  ],
+  "direct_prediction_subset": {
+    "fri": 56.54,
+    "model": "rf",
+    "tingkat_risiko": "Risiko Sedang"
+  },
+  "expected_feature_vector": {
+    "day_of_year": 14.0,
+    "month": 1.0,
+    "rain14": 123.0,
+    "rain3": 41.0,
+    "rain7": 73.0,
+    "rainfall_anomaly": 62.0,
+    "rh_avg": 83.0,
+    "rr": 14.0,
+    "temp_range": 8.0
+  },
+  "feature_order": [
+    "rr",
+    "rain3",
+    "rain7",
+    "rain14",
+    "rh_avg",
+    "temp_range",
+    "rainfall_anomaly",
+    "month",
+    "day_of_year"
+  ],
+  "pipeline": "provider -> realtime API -> prediction_gateway -> build_features -> Random Forest",
+  "rf_feature_vector": {
+    "day_of_year": 14.0,
+    "month": 1.0,
+    "rain14": 123.0,
+    "rain3": 41.0,
+    "rain7": 73.0,
+    "rainfall_anomaly": 62.0,
+    "rh_avg": 83.0,
+    "rr": 14.0,
+    "temp_range": 8.0
+  },
+  "status": "pass"
+}

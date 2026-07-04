@@ -6,6 +6,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from backend.config import load_backend_environment
+
+load_backend_environment()
+
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,6 +17,7 @@ from fastapi.responses import JSONResponse
 
 from backend.middleware import LoggingMiddleware
 from backend.routers import health, prediction
+from backend.routers.auth import router as auth_router
 from backend.routers.csv_prediction import router as csv_router
 from backend.routers.info import router as info_router
 from backend.routers.provider import router as provider_router
@@ -69,6 +74,7 @@ async def value_error_handler(request: Request, exc: ValueError):
 
 app.include_router(health.router)
 app.include_router(prediction.router)
+app.include_router(auth_router)
 app.include_router(csv_router)
 app.include_router(info_router)
 app.include_router(provider_router)
