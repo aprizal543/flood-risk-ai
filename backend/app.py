@@ -10,13 +10,17 @@ from backend.config import load_backend_environment
 
 load_backend_environment()
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from backend.middleware import LoggingMiddleware
+from backend.middleware import LoggingMiddleware, SecurityHeadersMiddleware
+from backend.security.rate_limit import limiter, rate_limit_exceeded_handler
+from slowapi.middleware import SlowAPIMiddleware
+from slowapi.errors import RateLimitExceeded
 from backend.routers import health, prediction
+from backend.routers.ai_chat import router as ai_chat_router
 from backend.routers.auth import router as auth_router
 from backend.routers.csv_prediction import router as csv_router
 from backend.routers.info import router as info_router
@@ -40,10 +44,22 @@ app = FastAPI(
 app.add_middleware(LoggingMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://floodrisk.ai",
+        "https://www.floodrisk.ai",
+    ],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
+app.add_middleware(SecurityHeadersMiddleware)
+app.state.limiter = limiter
+app.add_middleware(SlowAPIMiddleware)
+
+
+@app.exception_handler(RateLimitExceeded)
+async def _rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return await rate_limit_exceeded_handler(request, exc)
 
 
 @app.exception_handler(RequestValidationError)
@@ -64,6 +80,14 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     )
 
 
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"status": "error", "kode": exc.status_code, "pesan": exc.detail},
+    )
+
+
 @app.exception_handler(ValueError)
 async def value_error_handler(request: Request, exc: ValueError):
     return JSONResponse(
@@ -72,8 +96,17 @@ async def value_error_handler(request: Request, exc: ValueError):
     )
 
 
+@app.exception_handler(FileNotFoundError)
+async def file_not_found_handler(request: Request, exc: FileNotFoundError):
+    return JSONResponse(
+        status_code=500,
+        content={"status": "error", "kode": 500, "pesan": str(exc)},
+    )
+
+
 app.include_router(health.router)
 app.include_router(prediction.router)
+app.include_router(ai_chat_router)
 app.include_router(auth_router)
 app.include_router(csv_router)
 app.include_router(info_router)

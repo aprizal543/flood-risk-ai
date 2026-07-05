@@ -1,11 +1,6 @@
 [
-  "rr",
-  "rain3",
-  "rain7",
-  "rain14",
-  "rh_avg",
-  "temp_range",
-  "rainfall_anomaly",
-  "month",
-  "day_of_year"
+  "RR",
+  "Rain7",
+  "RH_avg",
+  "Tavg"
 ]

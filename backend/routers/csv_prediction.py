@@ -5,10 +5,14 @@ import io
 import logging
 from datetime import date, datetime
 
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
 from fastapi.responses import StreamingResponse
 
+from backend.dependencies.auth import get_current_user
 from backend.providers.models import RawWeatherData
+from backend.security.limits import PREDICTION_LIMIT
+from backend.security.rate_limit import limiter
+from backend.schemas.response import ErrorResponse
 from backend.services.prediction_gateway import predict_from_raw
 
 logger = logging.getLogger("backend.csv")
@@ -89,12 +93,21 @@ def _build_weather_and_history(valid_rows: list[dict]) -> tuple[RawWeatherData, 
 
 @router.post(
     "/api/prediksi/csv",
+    responses={
+        401: {"model": ErrorResponse},
+        422: {"model": ErrorResponse},
+    },
     summary="Prediksi risiko banjir dari file CSV",
     description="Upload file CSV berisi data observasi BMKG harian. "
                 "Baris historis digunakan untuk menghitung rolling features. "
                 "Prediksi dilakukan hanya untuk tanggal terakhir.",
 )
-async def predict_csv(file: UploadFile = File(..., description="File CSV observasi BMKG")):
+@limiter.limit(PREDICTION_LIMIT)
+async def predict_csv(
+    request: Request,
+    _: object = Depends(get_current_user),
+    file: UploadFile = File(..., description="File CSV observasi BMKG"),
+):
     if not file.filename or not file.filename.lower().endswith(".csv"):
         raise HTTPException(status_code=422, detail="File harus berformat CSV.")
 
@@ -121,10 +134,19 @@ async def predict_csv(file: UploadFile = File(..., description="File CSV observa
 
 @router.post(
     "/api/prediksi/csv/download",
+    responses={
+        401: {"model": ErrorResponse},
+        422: {"model": ErrorResponse},
+    },
     summary="Download hasil prediksi CSV",
     description="Upload CSV dan terima hasil prediksi tanggal terakhir dalam format CSV.",
 )
-async def predict_csv_download(file: UploadFile = File(..., description="File CSV observasi BMKG")):
+@limiter.limit(PREDICTION_LIMIT)
+async def predict_csv_download(
+    request: Request,
+    _: object = Depends(get_current_user),
+    file: UploadFile = File(..., description="File CSV observasi BMKG"),
+):
     if not file.filename or not file.filename.lower().endswith(".csv"):
         raise HTTPException(status_code=422, detail="File harus berformat CSV.")
 

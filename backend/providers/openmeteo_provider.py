@@ -35,7 +35,7 @@ class OpenMeteoProvider(WeatherProvider):
         params = {
             "latitude": location.latitude,
             "longitude": location.longitude,
-            "daily": "precipitation_sum,relative_humidity_2m_mean,temperature_2m_max,temperature_2m_min",
+            "daily": "precipitation_sum,relative_humidity_2m_mean,temperature_2m_mean,temperature_2m_max,temperature_2m_min",
             "start_date": (today - timedelta(days=1)).isoformat(),
             "end_date": today.isoformat(),
             "timezone": "Asia/Jakarta",
@@ -68,11 +68,12 @@ class OpenMeteoProvider(WeatherProvider):
         forecast_date = date.fromisoformat(times[idx])
         rr = daily["precipitation_sum"][idx]
         rh = daily["relative_humidity_2m_mean"][idx]
+        tavg = daily["temperature_2m_mean"][idx]
         tmax = daily["temperature_2m_max"][idx]
         tmin = daily["temperature_2m_min"][idx]
 
         # Handle None values from API
-        if any(v is None for v in (rr, rh, tmax, tmin)):
+        if any(v is None for v in (rr, rh, tavg, tmax, tmin)):
             raise WeatherProviderError("Data cuaca tidak lengkap dari Open-Meteo.")
 
         return RawWeatherData(
@@ -84,6 +85,7 @@ class OpenMeteoProvider(WeatherProvider):
             latitude=location.latitude,
             longitude=location.longitude,
             sumber="Open-Meteo",
+            tavg=float(tavg),
         )
 
     def get_weather_history(self, wilayah: str, days: int = 14) -> list[RawWeatherData]:
@@ -104,7 +106,7 @@ class OpenMeteoProvider(WeatherProvider):
         params = {
             "latitude": location.latitude,
             "longitude": location.longitude,
-            "daily": "precipitation_sum,relative_humidity_2m_mean,temperature_2m_max,temperature_2m_min",
+            "daily": "precipitation_sum,relative_humidity_2m_mean,temperature_2m_mean,temperature_2m_max,temperature_2m_min",
             "start_date": start_date.isoformat(),
             "end_date": today.isoformat(),
             "timezone": "Asia/Jakarta",
@@ -125,10 +127,11 @@ class OpenMeteoProvider(WeatherProvider):
         for i, t in enumerate(daily["time"]):
             rr = daily["precipitation_sum"][i]
             rh = daily["relative_humidity_2m_mean"][i]
+            tavg = daily["temperature_2m_mean"][i]
             tmax = daily["temperature_2m_max"][i]
             tmin = daily["temperature_2m_min"][i]
             # Skip days with incomplete data
-            if any(v is None for v in (rr, rh, tmax, tmin)):
+            if any(v is None for v in (rr, rh, tavg, tmax, tmin)):
                 continue
             results.append(RawWeatherData(
                 tanggal=date.fromisoformat(t),
@@ -139,6 +142,7 @@ class OpenMeteoProvider(WeatherProvider):
                 latitude=location.latitude,
                 longitude=location.longitude,
                 sumber="Open-Meteo",
+                tavg=float(tavg),
             ))
 
         if not results:

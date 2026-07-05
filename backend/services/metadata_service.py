@@ -22,7 +22,8 @@ APP_INFO = {
 }
 
 _REQUIRED_ARTIFACTS = {
-    "random_forest": ARTIFACTS_DIR / "random_forest.pkl",
+    "random_forest": ARTIFACTS_DIR / "random_forest_v2.pkl",
+    "random_forest_legacy": ARTIFACTS_DIR / "random_forest.pkl",
     "lstm": ARTIFACTS_DIR / "best_lstm.keras",
     "scaler_lstm": ARTIFACTS_DIR / "scaler_lstm.pkl",
     "feature_list": ARTIFACTS_DIR / "feature_list.json",
@@ -34,20 +35,27 @@ _REQUIRED_KNOWLEDGE = {
     "mitigation_rules": KNOWLEDGE_DIR / "mitigation_rules.json",
 }
 
+FRI_V2_FEATURES = ["RR", "Rain7", "RH_avg", "Tavg"]
+
 
 def get_model_info() -> dict:
     """Informasi model ML yang digunakan."""
     feature_path = ARTIFACTS_DIR / "feature_list.json"
     features = json.loads(feature_path.read_text()) if feature_path.exists() else []
     return {
-        "nama_model": "Random Forest Regressor + LSTM",
-        "versi_model": "1.0",
+        "nama_model": "Random Forest Regressor v2 + LSTM legacy",
+        "versi_model": "2.0",
         "target_prediksi": "Flood Risk Index (FRI)",
         "jumlah_fitur": len(features),
         "nama_fitur": features,
         "status_artifact": {
             name: "tersedia" if path.exists() else "tidak ditemukan"
             for name, path in _REQUIRED_ARTIFACTS.items()
+        },
+        "fri_v2_feature_engineering": {
+            "status": "tersedia",
+            "feature_order": FRI_V2_FEATURES,
+            "model_artifact": "random_forest_v2.pkl",
         },
     }
 

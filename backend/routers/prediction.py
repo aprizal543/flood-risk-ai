@@ -3,9 +3,12 @@
 import logging
 from datetime import datetime
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 
 from backend.providers.models import RawWeatherData
+from backend.dependencies.auth import get_current_user
+from backend.security.limits import PREDICTION_LIMIT
+from backend.security.rate_limit import limiter
 from backend.schemas.request import PrediksiManualRequest, PrediksiEngineeredRequest
 from backend.schemas.response import PrediksiResponse, ErrorResponse
 from backend.services.prediction_gateway import predict_from_raw
@@ -18,12 +21,20 @@ router = APIRouter(tags=["Prediksi"])
 @router.post(
     "/api/prediksi/manual",
     response_model=PrediksiResponse,
-    responses={422: {"model": ErrorResponse}},
+    responses={
+        401: {"model": ErrorResponse},
+        422: {"model": ErrorResponse},
+    },
     summary="Prediksi risiko banjir dari data mentah BMKG",
     description="Menerima data observasi cuaca mentah (tanggal, rr, rh_avg, tmax, tmin), "
                 "melakukan feature engineering otomatis, dan mengembalikan prediksi lengkap.",
 )
-def predict_manual(req: PrediksiManualRequest) -> PrediksiResponse:
+@limiter.limit(PREDICTION_LIMIT)
+def predict_manual(
+    request: Request,
+    req: PrediksiManualRequest,
+    _: object = Depends(get_current_user),
+) -> PrediksiResponse:
     logger.info("Feature engineering dimulai")
     tanggal = datetime.strptime(req.tanggal, "%Y-%m-%d").date()
     weather = RawWeatherData(
@@ -47,11 +58,19 @@ def predict_manual(req: PrediksiManualRequest) -> PrediksiResponse:
 @router.post(
     "/api/prediksi/engineered",
     response_model=PrediksiResponse,
-    responses={422: {"model": ErrorResponse}},
+    responses={
+        401: {"model": ErrorResponse},
+        422: {"model": ErrorResponse},
+    },
     summary="Prediksi dari fitur yang sudah direkayasa",
     description="Menerima 9 fitur ML yang sudah dihitung sebelumnya (kompatibilitas).",
 )
-def predict_engineered(req: PrediksiEngineeredRequest) -> PrediksiResponse:
+@limiter.limit(PREDICTION_LIMIT)
+def predict_engineered(
+    request: Request,
+    req: PrediksiEngineeredRequest,
+    _: object = Depends(get_current_user),
+) -> PrediksiResponse:
     features = req.model_dump(exclude={"model", "top_n"})
     try:
         result = run_prediction(features, model=req.model, top_n=req.top_n)

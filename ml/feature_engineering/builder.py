@@ -1,7 +1,10 @@
-"""builder.py – Membangun fitur ML dari data mentah BMKG.
+"""builder.py - Build ML features from raw weather observations.
 
-Menghasilkan DataFrame dengan urutan kolom sesuai feature_list.json:
-rr, rain3, rain7, rain14, rh_avg, temp_range, rainfall_anomaly, month, day_of_year
+FRI v2 feature engineering produces exactly: RR, Rain7, RH_avg, Tavg.
+
+The legacy v1 builder is retained temporarily for compatibility with the
+currently deployed v1 model and engineered endpoint. It is deprecated and must
+not be used to construct the FRI v2 realtime feature vector.
 """
 
 from datetime import date, datetime
@@ -18,9 +21,17 @@ FEATURE_ORDER = [
     "temp_range", "rainfall_anomaly", "month", "day_of_year",
 ]
 
+FEATURE_ORDER_V2 = ["RR", "Rain7", "RH_avg", "Tavg"]
+
 
 def build_features(raw_data: dict, history: list[dict] | None = None) -> pd.DataFrame:
-    """Bangun fitur ML dari data observasi mentah BMKG.
+    """Deprecated v1 feature builder retained for compatibility.
+
+    Builds the legacy v1 feature vector:
+    rr, rain3, rain7, rain14, rh_avg, temp_range, rainfall_anomaly, month,
+    day_of_year.
+
+    Do not use this function for FRI v2 realtime feature construction.
 
     Args:
         raw_data: Dict berisi {tanggal, rr, rh_avg, tmax, tmin}.
@@ -66,6 +77,45 @@ def build_features(raw_data: dict, history: list[dict] | None = None) -> pd.Data
         "day_of_year": day_of_year,
     }
     return pd.DataFrame([row])[FEATURE_ORDER]
+
+
+def build_features_v2(raw_data: dict, history: list[dict] | None = None) -> pd.DataFrame:
+    """Build the FRI v2 realtime feature vector.
+
+    Output order is exactly: RR, Rain7, RH_avg, Tavg.
+    Rain7 uses the same rolling methodology as the training dataset:
+    rolling(window=7, min_periods=1).sum() over historical RR plus current RR.
+    """
+    rr = float(raw_data["rr"])
+    rh_avg = float(raw_data["rh_avg"])
+    tavg = _resolve_tavg(raw_data)
+
+    if history is not None:
+        rr_values = [float(h["rr"]) for h in history] + [rr]
+        rr_series = pd.Series(rr_values)
+        rain7 = float(compute_rain7(rr_series).iloc[-1])
+    else:
+        rain7 = rr
+
+    row = {
+        "RR": rr,
+        "Rain7": rain7,
+        "RH_avg": rh_avg,
+        "Tavg": tavg,
+    }
+    return pd.DataFrame([row])[FEATURE_ORDER_V2]
+
+
+def _resolve_tavg(raw_data: dict) -> float:
+    """Resolve average daily temperature for FRI v2 features.
+
+    Open-Meteo provides `temperature_2m_mean`, mapped into `tavg`; use it when
+    present. The tmax/tmin fallback exists only for non-provider legacy inputs
+    such as manual or CSV data until their contracts are migrated.
+    """
+    if raw_data.get("tavg") is not None:
+        return float(raw_data["tavg"])
+    return (float(raw_data["tmax"]) + float(raw_data["tmin"])) / 2
 
 
 def _parse_tanggal(value) -> date:

@@ -4,9 +4,13 @@ import logging
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
+
+from backend.dependencies.auth import get_current_user
 
 from backend.providers.exceptions import LocationNotFoundError, ProviderConnectionError, WeatherProviderError
+from backend.security.limits import REALTIME_LIMIT
+from backend.security.rate_limit import limiter
 from backend.providers.openmeteo_provider import OpenMeteoProvider
 from backend.services.prediction_gateway import predict_from_raw
 
@@ -24,7 +28,10 @@ WIB = ZoneInfo("Asia/Jakarta")
                 "melakukan feature engineering dengan rolling features historis, "
                 "lalu mengembalikan FRI, rekomendasi komoditas, dan tindakan mitigasi.",
 )
+@limiter.limit(REALTIME_LIMIT)
 def predict_realtime(
+    request: Request,
+    _: object = Depends(get_current_user),
     wilayah: str = Query(..., description="Nama wilayah/kota", examples=["Pekanbaru"]),
     model: str = Query(default="rf", pattern="^(rf|lstm)$", description="Model prediksi"),
     top_n: int = Query(default=5, ge=1, le=17, description="Jumlah rekomendasi"),
@@ -45,7 +52,7 @@ def predict_realtime(
 
     # Predict using full history
     try:
-        result = predict_from_raw(weather, weather_history=preceding, model=model, top_n=top_n)
+        result = predict_from_raw(weather, weather_history=preceding, model=model, top_n=top_n, include_features=True)
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
 
@@ -54,6 +61,7 @@ def predict_realtime(
                 len(preceding) if preceding else 0)
 
     now = datetime.now(WIB)
+    features = result["_features"]
 
     return {
         "status": "berhasil",
@@ -64,6 +72,10 @@ def predict_realtime(
         "waktu_prediksi": now.isoformat(),
         "model": result["model"],
         "versi_model": "1.0",
+        "RR": features["RR"],
+        "Rain7": features["Rain7"],
+        "RH_avg": features["RH_avg"],
+        "Tavg": features["Tavg"],
         "cuaca": {
             "tanggal": weather.tanggal.isoformat(),
             "rr": weather.rr,

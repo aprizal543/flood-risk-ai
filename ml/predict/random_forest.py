@@ -15,7 +15,7 @@ def _load_model():
     """Lazy-load the Random Forest model."""
     global _model
     if _model is None:
-        _model = joblib.load(ARTIFACTS_DIR / "random_forest.pkl")
+        _model = joblib.load(ARTIFACTS_DIR / "random_forest_v2.pkl")
     return _model
 
 

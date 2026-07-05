@@ -15,3 +15,4 @@ class RawWeatherData:
     latitude: float
     longitude: float
     sumber: str
+    tavg: float | None = None

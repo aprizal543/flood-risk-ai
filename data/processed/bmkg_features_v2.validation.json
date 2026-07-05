@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "checks": {
+    "record_count_726": true,
+    "date_range_unchanged": true,
+    "duplicate_rows_zero": true,
+    "duplicate_dates_zero": true,
+    "feature_order_exact": true,
+    "removed_features_absent": true,
+    "rain7_correct": true,
+    "rr_missing_unchanged": true,
+    "rh_avg_missing_unchanged": true,
+    "tavg_missing_unchanged": true
+  },
+  "source_dataset": {
+    "path": "data\\interim\\bmkg_clean.csv",
+    "record_count": 726,
+    "date_range": {
+      "start": "2024-07-01",
+      "end": "2026-06-26"
+    },
+    "duplicate_rows": 0,
+    "duplicate_dates": 0,
+    "missing_values_retained_columns": {
+      "RR": 74,
+      "RH_avg": 5,
+      "Tavg": 5
+    }
+  },
+  "feature_dataset": {
+    "path": "data\\processed\\bmkg_features_v2.csv",
+    "record_count": 726,
+    "feature_count": 4,
+    "feature_order": [
+      "RR",
+      "Rain7",
+      "RH_avg",
+      "Tavg"
+    ],
+    "missing_values": {
+      "RR": 74,
+      "Rain7": 0,
+      "RH_avg": 5,
+      "Tavg": 5
+    },
+    "data_types": {
+      "RR": "float64",
+      "Rain7": "float64",
+      "RH_avg": "float64",
+      "Tavg": "float64"
+    },
+    "removed_features_present": []
+  }
+}

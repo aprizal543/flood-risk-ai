@@ -1,10 +1,12 @@
 """Authentication routes backed by Supabase Auth."""
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from pydantic import BaseModel
 
 from backend.dependencies.auth import get_current_user
 from backend.schemas.response import ErrorResponse
+from backend.security.limits import LOGIN_LIMIT, REGISTER_LIMIT
+from backend.security.rate_limit import limiter
 from backend.services.auth_service import (
     AuthError,
     AuthLoginRequest,
@@ -30,7 +32,8 @@ class CurrentUserResponse(BaseModel):
 
 
 @router.post("/register", response_model=AuthSessionResponse, responses={400: {"model": ErrorResponse}, 422: {"model": ErrorResponse}})
-def register(req: AuthRegisterRequest) -> AuthSessionResponse:
+@limiter.limit(REGISTER_LIMIT)
+def register(request: Request, req: AuthRegisterRequest) -> AuthSessionResponse:
     try:
         return register_user(req)
     except AuthError as exc:
@@ -38,7 +41,8 @@ def register(req: AuthRegisterRequest) -> AuthSessionResponse:
 
 
 @router.post("/login", response_model=AuthSessionResponse, responses={401: {"model": ErrorResponse}, 422: {"model": ErrorResponse}})
-def login(req: AuthLoginRequest) -> AuthSessionResponse:
+@limiter.limit(LOGIN_LIMIT)
+def login(request: Request, req: AuthLoginRequest) -> AuthSessionResponse:
     try:
         return login_user(req)
     except AuthError as exc:

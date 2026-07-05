@@ -1,0 +1,188 @@
+{
+  "dataset": "FRI v2 ML preparation dataset",
+  "input_file": "data/processed/bmkg_fri_v2.csv",
+  "input_sha256": "763da7d2d10a7bf6cfa96a24d6237a5e7d3c45f121752f98511c5731719cb748",
+  "record_count": 726,
+  "missing_values_before_preprocessing": {
+    "Date": 0,
+    "RR": 74,
+    "Rain7": 0,
+    "RH_avg": 5,
+    "Tavg": 5,
+    "FRI_v2": 0
+  },
+  "missing_values_after_preprocessing": {
+    "Date": 0,
+    "RR": 0,
+    "Rain7": 0,
+    "RH_avg": 0,
+    "Tavg": 0,
+    "FRI_v2": 0
+  },
+  "median_values_used": {
+    "RR": 0.8,
+    "Rain7": 47.10000000000003,
+    "RH_avg": 81.0,
+    "Tavg": 27.4
+  },
+  "imputation_method": "median",
+  "imputed_columns": [
+    "RR",
+    "Rain7",
+    "RH_avg",
+    "Tavg"
+  ],
+  "non_imputed_columns": [
+    "Date",
+    "FRI_v2"
+  ],
+  "train_size": 581,
+  "test_size": 145,
+  "train_percentage": 80.0275,
+  "test_percentage": 19.9725,
+  "chronological_split_index": 581,
+  "shuffle": false,
+  "feature_names": [
+    "RR",
+    "Rain7",
+    "RH_avg",
+    "Tavg"
+  ],
+  "target_name": "FRI_v2",
+  "date_range": {
+    "start": "2024-07-01",
+    "end": "2026-06-26"
+  },
+  "train_date_range": {
+    "start": "2024-07-01",
+    "end": "2026-02-01"
+  },
+  "test_date_range": {
+    "start": "2026-02-02",
+    "end": "2026-06-26"
+  },
+  "processing_timestamp": "2026-07-05T03:50:13.884830+00:00",
+  "validation_checks": {
+    "input_checksum_unchanged": true,
+    "record_count_726": true,
+    "columns_exact": true,
+    "no_duplicate_rows": true,
+    "no_duplicate_dates": true,
+    "date_range_unchanged": true,
+    "chronological_order_preserved": true,
+    "missing_after_zero": true,
+    "target_unchanged": true,
+    "date_unchanged": true,
+    "feature_non_missing_values_unchanged": true,
+    "only_feature_missing_values_changed": true,
+    "train_size_nearest_80_percent": true,
+    "test_size_remaining_20_percent": true,
+    "split_chronological_no_overlap": true,
+    "shuffle_false": true,
+    "no_model_training": true
+  },
+  "before_statistics": {
+    "RR": {
+      "count": 652.0,
+      "mean": 9.339417,
+      "std": 17.744856,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.8,
+      "75%": 11.075,
+      "max": 115.8
+    },
+    "Rain7": {
+      "count": 726.0,
+      "mean": 58.416529,
+      "std": 53.035699,
+      "min": 0.0,
+      "25%": 15.875,
+      "50%": 47.1,
+      "75%": 85.95,
+      "max": 297.6
+    },
+    "RH_avg": {
+      "count": 721.0,
+      "mean": 81.27018,
+      "std": 6.157893,
+      "min": 63.0,
+      "25%": 77.0,
+      "50%": 81.0,
+      "75%": 86.0,
+      "max": 98.0
+    },
+    "Tavg": {
+      "count": 721.0,
+      "mean": 27.333287,
+      "std": 1.175113,
+      "min": 23.5,
+      "25%": 26.5,
+      "50%": 27.4,
+      "75%": 28.2,
+      "max": 30.0
+    },
+    "FRI_v2": {
+      "count": 726.0,
+      "mean": 45.399672,
+      "std": 18.684084,
+      "min": 8.503937,
+      "25%": 30.41692,
+      "50%": 45.952602,
+      "75%": 61.518897,
+      "max": 86.556225
+    }
+  },
+  "after_statistics": {
+    "RR": {
+      "count": 726.0,
+      "mean": 8.469008,
+      "std": 17.01249,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.8,
+      "75%": 8.15,
+      "max": 115.8
+    },
+    "Rain7": {
+      "count": 726.0,
+      "mean": 58.416529,
+      "std": 53.035699,
+      "min": 0.0,
+      "25%": 15.875,
+      "50%": 47.1,
+      "75%": 85.95,
+      "max": 297.6
+    },
+    "RH_avg": {
+      "count": 726.0,
+      "mean": 81.26832,
+      "std": 6.136663,
+      "min": 63.0,
+      "25%": 77.0,
+      "50%": 81.0,
+      "75%": 86.0,
+      "max": 98.0
+    },
+    "Tavg": {
+      "count": 726.0,
+      "mean": 27.333747,
+      "std": 1.171067,
+      "min": 23.5,
+      "25%": 26.5,
+      "50%": 27.4,
+      "75%": 28.2,
+      "max": 30.0
+    },
+    "FRI_v2": {
+      "count": 726.0,
+      "mean": 45.399672,
+      "std": 18.684084,
+      "min": 8.503937,
+      "25%": 30.41692,
+      "50%": 45.952602,
+      "75%": 61.518897,
+      "max": 86.556225
+    }
+  }
+}
