@@ -1,0 +1,98 @@
+[
+  {
+    "nama": "Kabupaten Bengkalis",
+    "canonical": "Bengkalis",
+    "tipe": "Kabupaten",
+    "kode": "22746128B45456061674897",
+    "centroid": [101.699706, 1.611479],
+    "aliases": ["bengkalis", "kabupaten bengkalis"]
+  },
+  {
+    "nama": "Kabupaten Indragiri Hilir",
+    "canonical": "Indragiri Hilir",
+    "tipe": "Kabupaten",
+    "kode": "22746128B36468792556341",
+    "centroid": [103.376297, -0.321782],
+    "aliases": ["indragiri hilir", "inhil", "kabupaten indragiri hilir"]
+  },
+  {
+    "nama": "Kabupaten Indragiri Hulu",
+    "canonical": "Indragiri Hulu",
+    "tipe": "Kabupaten",
+    "kode": "22746128B72920479258091",
+    "centroid": [102.183271, -0.716136],
+    "aliases": ["indragiri hulu", "inhu", "kabupaten indragiri hulu"]
+  },
+  {
+    "nama": "Kabupaten Kampar",
+    "canonical": "Kampar",
+    "tipe": "Kabupaten",
+    "kode": "22746128B8837306932395",
+    "centroid": [101.043385, 0.247427],
+    "aliases": ["kampar", "kabupaten kampar"]
+  },
+  {
+    "nama": "Kabupaten Kepulauan Meranti",
+    "canonical": "Kepulauan Meranti",
+    "tipe": "Kabupaten",
+    "kode": "22746128B32802105420608",
+    "centroid": [102.719124, 0.988628],
+    "aliases": ["kepulauan meranti", "meranti", "kabupaten kepulauan meranti"]
+  },
+  {
+    "nama": "Kabupaten Kuantan Singingi",
+    "canonical": "Kuantan Singingi",
+    "tipe": "Kabupaten",
+    "kode": "22746128B8182037452639",
+    "centroid": [101.512126, -0.483086],
+    "aliases": ["kuantan singingi", "kuansing", "kabupaten kuantan singingi"]
+  },
+  {
+    "nama": "Kabupaten Pelalawan",
+    "canonical": "Pelalawan",
+    "tipe": "Kabupaten",
+    "kode": "22746128B44055596539945",
+    "centroid": [102.466685, 0.289157],
+    "aliases": ["pelalawan", "kabupaten pelalawan"]
+  },
+  {
+    "nama": "Kabupaten Rokan Hilir",
+    "canonical": "Rokan Hilir",
+    "tipe": "Kabupaten",
+    "kode": "22746128B71759944188311",
+    "centroid": [100.657588, 1.98161],
+    "aliases": ["rokan hilir", "rohil", "kabupaten rokan hilir"]
+  },
+  {
+    "nama": "Kabupaten Rokan Hulu",
+    "canonical": "Rokan Hulu",
+    "tipe": "Kabupaten",
+    "kode": "22746128B35208725321264",
+    "centroid": [100.435893, 0.875212],
+    "aliases": ["rokan hulu", "rohul", "kabupaten rokan hulu"]
+  },
+  {
+    "nama": "Kabupaten Siak",
+    "canonical": "Siak",
+    "tipe": "Kabupaten",
+    "kode": "22746128B48036345674071",
+    "centroid": [101.828684, 0.78102],
+    "aliases": ["siak", "kabupaten siak"]
+  },
+  {
+    "nama": "Kota Dumai",
+    "canonical": "Dumai",
+    "tipe": "Kota",
+    "kode": "22746128B18875576502901",
+    "centroid": [101.319229, 1.830902],
+    "aliases": ["dumai", "kota dumai"]
+  },
+  {
+    "nama": "Kota Pekanbaru",
+    "canonical": "Pekanbaru",
+    "tipe": "Kota",
+    "kode": "22746128B3549150233660",
+    "centroid": [101.460272, 0.537806],
+    "aliases": ["pekanbaru", "kota pekanbaru", "pku"]
+  }
+]

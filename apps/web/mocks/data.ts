@@ -1,0 +1,41 @@
+export const MOCK_PREDICTION = {
+  wilayah: "Pekanbaru",
+  sumber_data: "Open-Meteo",
+  waktu_prediksi: "2026-06-28T09:00:00",
+  model: "rf",
+  fri: 67.3,
+  tingkat_risiko: "Risiko Tinggi" as const,
+  RR: 45.0,
+  Rain7: 120.4,
+  RH_avg: 92.0,
+  Tavg: 27.5,
+  forecast_date: "2026-06-27",
+  updated_at: "2026-06-28T09:00:00",
+  versi_model: "1.0",
+  hari_historis: 13,
+  cuaca: { tanggal: "2026-06-27", rr: 45.0, rh_avg: 92.0, tmax: 31.0, tmin: 24.0, latitude: 0.51667, longitude: 101.44167 },
+  rekomendasi: [
+    { komoditas: "Kangkung", komoditas_id: "kangkung", skor: 91.8, tingkat_keyakinan: 100, tingkat_risiko: "Risiko Tinggi", alasan: ["Memiliki toleransi banjir sangat tinggi", "Sangat cocok untuk kondisi Risiko Tinggi", "Masa panen singkat (25 hari)", "Tidak memerlukan drainase khusus"], ringkasan: "Kangkung sangat direkomendasikan karena memiliki toleransi banjir sangat tinggi." },
+    { komoditas: "Talas", komoditas_id: "talas", skor: 82.6, tingkat_keyakinan: 89.9, tingkat_risiko: "Risiko Tinggi", alasan: ["Memiliki toleransi banjir sangat tinggi", "Sangat cocok untuk kondisi Risiko Tinggi", "Tidak memerlukan drainase khusus"], ringkasan: "Talas dapat dipertimbangkan untuk ditanam." },
+    { komoditas: "Bayam", komoditas_id: "bayam", skor: 76.3, tingkat_keyakinan: 87.1, tingkat_risiko: "Risiko Tinggi", alasan: ["Memiliki toleransi banjir tinggi", "Masa panen singkat (30 hari)"], ringkasan: "Bayam dapat dipertimbangkan dengan memperhatikan drainase." },
+    { komoditas: "Sawi Hijau", komoditas_id: "sawi", skor: 72.5, tingkat_keyakinan: 79.0, tingkat_risiko: "Risiko Tinggi", alasan: ["Toleransi banjir tinggi", "Masa panen singkat (35 hari)"], ringkasan: "Sawi hijau cukup tahan terhadap kondisi basah." },
+    { komoditas: "Kacang Panjang", komoditas_id: "kacang_panjang", skor: 59.1, tingkat_keyakinan: 64.4, tingkat_risiko: "Risiko Tinggi", alasan: ["Toleransi banjir sedang", "Tipe merambat menjaga polong di atas air"], ringkasan: "Kacang panjang memerlukan perhatian ekstra." },
+  ],
+  mitigasi: [
+    { prioritas: 1, kategori: "Drainase", tindakan: "Buka semua pintu air dan pastikan pompa drainase berfungsi maksimal" },
+    { prioritas: 2, kategori: "Panen", tindakan: "Segera panen semua tanaman yang sudah matang atau mendekati matang" },
+    { prioritas: 3, kategori: "Perlindungan", tindakan: "Gunakan karung pasir atau barrier untuk melindungi area tanam" },
+    { prioritas: 4, kategori: "Penanaman", tindakan: "Tunda penanaman baru sampai risiko banjir menurun" },
+    { prioritas: 5, kategori: "Pemulihan", tindakan: "Siapkan benih pengganti dan pupuk untuk pemulihan pasca banjir" },
+  ],
+};
+
+export const MOCK_TREND = [
+  { tanggal: "22 Jun", fri: 32 },
+  { tanggal: "23 Jun", fri: 41 },
+  { tanggal: "24 Jun", fri: 55 },
+  { tanggal: "25 Jun", fri: 48 },
+  { tanggal: "26 Jun", fri: 62 },
+  { tanggal: "27 Jun", fri: 67 },
+  { tanggal: "28 Jun", fri: 67.3 },
+];
