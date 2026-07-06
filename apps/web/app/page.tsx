@@ -1,5 +1,5 @@
-import { DashboardScreen } from "@/components/dashboard/dashboard-screen";
+import { redirect } from "next/navigation";
 
-export default function DashboardPage() {
-  return <DashboardScreen />;
+export default function RootPage() {
+  redirect("/login");
 }

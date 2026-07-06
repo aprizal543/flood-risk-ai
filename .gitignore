@@ -12,7 +12,7 @@ venv/
 *.h5
 *.keras
 *.joblib
-*.pkl
+
 
 # Environment
 .env
