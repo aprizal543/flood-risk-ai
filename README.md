@@ -177,5 +177,4 @@ Dokumentasi arsitektur lengkap: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 
 ## Lisensi
 
-Research Project — Universitas Islam Negeri Sultan Syarif Kasim Riau.
-Non-commercial. Peneliti: Aprizal, Program Studi Teknik Informatika.
+Research Project — Non-commercial. 

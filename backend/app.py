@@ -1,6 +1,7 @@
 """FastAPI application – Flood Risk DSS Backend."""
 
 import logging
+import os
 import sys
 from pathlib import Path
 
@@ -42,13 +43,13 @@ app = FastAPI(
 )
 
 app.add_middleware(LoggingMiddleware)
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+allow_origins = ["http://localhost:3000", "http://127.0.0.1:3000"]
+if FRONTEND_URL:
+    allow_origins.append(FRONTEND_URL)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://floodrisk.ai",
-        "https://www.floodrisk.ai",
-    ],
+    allow_origins=allow_origins,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type"],
 )
