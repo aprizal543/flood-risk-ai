@@ -50,3 +50,12 @@ RETRY_TOTAL: int = _int_env("HTTP_RETRY_TOTAL", 3)
 RETRY_BACKOFF_FACTOR: float = float(
     os.getenv("HTTP_RETRY_BACKOFF_FACTOR", "1.0")
 )
+
+# ── Cache TTL defaults (overridable via env) ────────────────────────────
+# Geocoding: city -> coordinates rarely changes; 24-hour cache is safe.
+GEOCODING_CACHE_TTL: int = _int_env("GEOCODING_CACHE_TTL", 86400)
+GEOCODING_CACHE_MAXSIZE: int = _int_env("GEOCODING_CACHE_MAXSIZE", 1000)
+
+# Forecast: 10-minute TTL balances freshness with latency reduction.
+FORECAST_CACHE_TTL: int = _int_env("FORECAST_CACHE_TTL", 600)
+FORECAST_CACHE_MAXSIZE: int = _int_env("FORECAST_CACHE_MAXSIZE", 100)

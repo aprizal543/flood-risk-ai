@@ -10,7 +10,10 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+from backend.cache import CacheMetrics, ThreadSafeCache
 from backend.config import (
+    GEOCODING_CACHE_MAXSIZE,
+    GEOCODING_CACHE_TTL,
     GEOCODING_CONNECT_TIMEOUT,
     GEOCODING_READ_TIMEOUT,
     POOL_CONNECTIONS,
@@ -22,6 +25,14 @@ from backend.logging import get_request_id
 from backend.providers.exceptions import LocationNotFoundError, ProviderConnectionError
 
 logger = logging.getLogger("backend.providers.geocoding")
+
+# ── Geocoding cache ───────────────────────────────────────────────────
+geocoding_cache: ThreadSafeCache[GeoLocation] = ThreadSafeCache(
+    maxsize=GEOCODING_CACHE_MAXSIZE, ttl=GEOCODING_CACHE_TTL,
+)
+geocoding_metrics = CacheMetrics()
+
+GEOCODING_CACHE_PREFIX = "geo:"
 
 GEOCODING_URL = "https://geocoding-api.open-meteo.com/v1/search"
 GEOCODING_TIMEOUT = (GEOCODING_CONNECT_TIMEOUT, GEOCODING_READ_TIMEOUT)
@@ -71,8 +82,8 @@ class GeoLocation:
 def geocode(wilayah: str) -> GeoLocation:
     """Cari koordinat untuk nama wilayah menggunakan Open-Meteo Geocoding API.
 
-    Menggunakan koneksi pool bersama, retry dengan exponential backoff,
-    dan structured timeout untuk observability.
+    Menggunakan cache in-memory untuk menghindari HTTP request berulang.
+    Cache key adalah nama wilayah yang sudah di-lowercase dan di-strip.
 
     Args:
         wilayah: Nama kota/wilayah.
@@ -84,8 +95,19 @@ def geocode(wilayah: str) -> GeoLocation:
         LocationNotFoundError: Jika wilayah tidak ditemukan.
         ProviderConnectionError: Jika gagal terhubung setelah seluruh retry habis.
     """
-    start = time.perf_counter()
     _rid = get_request_id()
+    cache_key = f"{GEOCODING_CACHE_PREFIX}{wilayah.lower().strip()}"
+
+    cached = geocoding_cache.get(cache_key)
+    if cached is not None:
+        geocoding_metrics.hit()
+        logger.info("[%s] Geocoding Cache HIT '%s'", _rid, wilayah)
+        return cached
+
+    geocoding_metrics.miss()
+    logger.info("[%s] Geocoding Cache MISS '%s'", _rid, wilayah)
+
+    start = time.perf_counter()
 
     try:
         resp = _http_get(
@@ -96,7 +118,7 @@ def geocode(wilayah: str) -> GeoLocation:
         resp.raise_for_status()
 
         elapsed_ms = (time.perf_counter() - start) * 1000
-        logger.info("[%s] Geocoding '%s'=%dms", _rid, wilayah, elapsed_ms)
+        logger.info("[%s] Geocoding HTTP '%s'=%dms", _rid, wilayah, elapsed_ms)
 
     except requests.RequestException as e:
         elapsed_ms = (time.perf_counter() - start) * 1000
@@ -115,11 +137,13 @@ def geocode(wilayah: str) -> GeoLocation:
         raise LocationNotFoundError(f"Lokasi '{wilayah}' tidak ditemukan.")
 
     r = results[0]
-    return GeoLocation(
+    location = GeoLocation(
         latitude=r["latitude"],
         longitude=r["longitude"],
         name=r.get("name", wilayah),
     )
+    geocoding_cache.set(cache_key, location)
+    return location
 
 
 def _extract_status(exc: requests.RequestException) -> int | None:

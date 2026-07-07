@@ -11,7 +11,10 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+from backend.cache import CacheMetrics, ThreadSafeCache
 from backend.config import (
+    FORECAST_CACHE_MAXSIZE,
+    FORECAST_CACHE_TTL,
     OPENMETEO_CONNECT_TIMEOUT,
     OPENMETEO_READ_TIMEOUT,
     POOL_CONNECTIONS,
@@ -26,6 +29,14 @@ from backend.providers.models import RawWeatherData
 from backend.providers.weather_provider import WeatherProvider
 
 logger = logging.getLogger("backend.providers.openmeteo")
+
+# ── Forecast cache ────────────────────────────────────────────────────
+forecast_cache: ThreadSafeCache[dict] = ThreadSafeCache(
+    maxsize=FORECAST_CACHE_MAXSIZE, ttl=FORECAST_CACHE_TTL,
+)
+forecast_metrics = CacheMetrics()
+
+FORECAST_CACHE_PREFIX = "fcst:"
 
 WEATHER_URL = "https://api.open-meteo.com/v1/forecast"
 WIB = ZoneInfo("Asia/Jakarta")
@@ -112,13 +123,38 @@ def _log_request_error(
     )
 
 
+def _forecast_cache_key_from_params(params: dict) -> str:
+    """Build a deterministic cache key from forecast params."""
+    lat = round(params["latitude"], 6)
+    lon = round(params["longitude"], 6)
+    start = params["start_date"]
+    end = params["end_date"]
+    days = (date.fromisoformat(end) - date.fromisoformat(start)).days + 1
+    return f"{FORECAST_CACHE_PREFIX}{lat}:{lon}:{days}"
+
+
 def _fetch_forecast(
     params: dict,
     label: str,
 ) -> dict:
-    """Execute a single forecast GET with shared session, retry, and logging."""
-    start = time.perf_counter()
+    """Execute a single forecast GET with caching, shared session, retry, and logging.
+
+    On cache HIT returns the cached JSON directly — no HTTP request.
+    On cache MISS performs the HTTP request, stores the response, then returns.
+    """
     _rid = get_request_id()
+    cache_key = _forecast_cache_key_from_params(params)
+
+    cached = forecast_cache.get(cache_key)
+    if cached is not None:
+        forecast_metrics.hit()
+        logger.info("[%s] Forecast Cache HIT %s", _rid, label)
+        return cached
+
+    forecast_metrics.miss()
+    logger.info("[%s] Forecast Cache MISS %s", _rid, label)
+
+    start = time.perf_counter()
 
     try:
         resp = _http_get(WEATHER_URL, params=params, timeout=WEATHER_TIMEOUT)
@@ -126,7 +162,10 @@ def _fetch_forecast(
 
         elapsed_ms = (time.perf_counter() - start) * 1000
         logger.info("[%s] %s=%dms", _rid, label, elapsed_ms)
-        return resp.json()
+
+        data = resp.json()
+        forecast_cache.set(cache_key, data)
+        return data
 
     except requests.RequestException as e:
         elapsed_ms = (time.perf_counter() - start) * 1000
