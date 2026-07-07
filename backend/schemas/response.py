@@ -30,6 +30,7 @@ class PrediksiResponse(BaseModel):
 class HealthResponse(BaseModel):
     status: str
     versi: str
+    ready: bool = True
 
 
 class ErrorResponse(BaseModel):

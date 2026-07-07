@@ -3,6 +3,7 @@
 from pathlib import Path
 from typing import Any
 
+import sklearn.ensemble._forest  # noqa: F401  # eager import – moves ~1.1 s import out of first-request path
 import joblib
 import pandas as pd
 

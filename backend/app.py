@@ -17,6 +17,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from backend.middleware import LoggingMiddleware, SecurityHeadersMiddleware
+from backend.startup import AppStartup
 from backend.security.rate_limit import limiter, rate_limit_exceeded_handler
 from slowapi.middleware import SlowAPIMiddleware
 from slowapi.errors import RateLimitExceeded
@@ -103,6 +104,13 @@ async def file_not_found_handler(request: Request, exc: FileNotFoundError):
         status_code=500,
         content={"status": "error", "kode": 500, "pesan": str(exc)},
     )
+
+
+@app.on_event("startup")
+def on_startup():
+    startup = AppStartup()
+    app.state.startup = startup
+    startup.warm_up()
 
 
 app.include_router(health.router)
