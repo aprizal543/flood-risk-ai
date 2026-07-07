@@ -1,4 +1,4 @@
-"""Middleware for request/response tracking and security headers."""
+"""Middleware for request/response tracking, RequestID, and security headers."""
 
 import logging
 import time
@@ -7,16 +7,31 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
 
+from backend.logging import generate_request_id, set_request_id
+
 logger = logging.getLogger("backend")
 
 
 class LoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
+        request_id = generate_request_id()
+        set_request_id(request_id)
+
         start = time.perf_counter()
-        logger.info(f"Request: {request.method} {request.url.path}")
+        path = request.url.path
+        query = request.url.query
+        full_path = f"{path}?{query}" if query else path
+        logger.info("[%s] Request: %s %s", request_id, request.method, full_path)
+
         response = await call_next(request)
+
         elapsed = (time.perf_counter() - start) * 1000
-        logger.info(f"Response: {response.status_code} ({elapsed:.1f}ms)")
+        logger.info(
+            "[%s] Response: %s (%dms)",
+            request_id,
+            response.status_code,
+            elapsed,
+        )
         return response
 
 

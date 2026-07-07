@@ -1,0 +1,204 @@
+{
+  "model_version": "v3",
+  "fri_version": "FRI_v3_Final (Configuration F)",
+  "dataset_version": "3.0",
+  "dataset_source": "data\\processed\\bmkg_fri_v3_final.csv",
+  "input_sha256": "c05d153781c724011a95e81c97b3dde7cec3f6fdb8e924fcbcb2e54714b3a5fd",
+  "generation_date": "2026-07-07T05:48:44.844006+00:00",
+  "record_count": 726,
+  "training_records": 581,
+  "testing_records": 145,
+  "training_percentage": 80.0275,
+  "testing_percentage": 19.9725,
+  "split_strategy": "chronological (no shuffle), first 581 rows train, remaining 145 test",
+  "chronological_split_index": 581,
+  "shuffle": false,
+  "feature_order": [
+    "RR",
+    "Rain7",
+    "RH_avg",
+    "Tavg"
+  ],
+  "target_column": "FRI_v3_Final",
+  "weights": {
+    "RR": 15,
+    "Rain7": 35,
+    "RH_avg": 30,
+    "Tavg": 20
+  },
+  "imputation_method": "median",
+  "imputed_columns": [
+    "RR",
+    "Rain7",
+    "RH_avg",
+    "Tavg"
+  ],
+  "non_imputed_columns": [
+    "Date",
+    "FRI_v2",
+    "FRI_v3_Final",
+    "Risk_Class_v3_Final",
+    "Confidence_v3_Final"
+  ],
+  "median_values_used": {
+    "RR": 0.8,
+    "RH_avg": 81.0,
+    "Tavg": 27.4
+  },
+  "missing_values_before_preprocessing": {
+    "RR": 74,
+    "Rain7": 0,
+    "RH_avg": 5,
+    "Tavg": 5,
+    "Date": 0,
+    "FRI_v2": 0,
+    "FRI_v3_Final": 0,
+    "Risk_Class_v3_Final": 0,
+    "Confidence_v3_Final": 0
+  },
+  "missing_values_after_preprocessing": {
+    "RR": 0,
+    "Rain7": 0,
+    "RH_avg": 0,
+    "Tavg": 0,
+    "Date": 0,
+    "FRI_v2": 0,
+    "FRI_v3_Final": 0,
+    "Risk_Class_v3_Final": 0,
+    "Confidence_v3_Final": 0
+  },
+  "before_statistics": {
+    "RR": {
+      "count": 652,
+      "mean": 9.339417,
+      "std": 17.731242,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.8,
+      "75%": 11.075,
+      "max": 115.8
+    },
+    "Rain7": {
+      "count": 726,
+      "mean": 58.416529,
+      "std": 52.99916,
+      "min": 0.0,
+      "25%": 15.875,
+      "50%": 47.1,
+      "75%": 85.95,
+      "max": 297.6
+    },
+    "RH_avg": {
+      "count": 721,
+      "mean": 81.27018,
+      "std": 6.153622,
+      "min": 63.0,
+      "25%": 77.0,
+      "50%": 81.0,
+      "75%": 86.0,
+      "max": 98.0
+    },
+    "Tavg": {
+      "count": 721,
+      "mean": 27.333287,
+      "std": 1.174298,
+      "min": 23.5,
+      "25%": 26.5,
+      "50%": 27.4,
+      "75%": 28.2,
+      "max": 30.0
+    },
+    "FRI_v3_Final": {
+      "count": 726,
+      "mean": 44.379675,
+      "std": 14.427815,
+      "min": 8.503937,
+      "25%": 33.264617,
+      "50%": 44.489454,
+      "75%": 56.128344,
+      "max": 79.006024
+    }
+  },
+  "after_statistics": {
+    "RR": {
+      "count": 726,
+      "mean": 8.469008,
+      "std": 17.000769,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.8,
+      "75%": 8.15,
+      "max": 115.8
+    },
+    "Rain7": {
+      "count": 726,
+      "mean": 58.416529,
+      "std": 52.99916,
+      "min": 0.0,
+      "25%": 15.875,
+      "50%": 47.1,
+      "75%": 85.95,
+      "max": 297.6
+    },
+    "RH_avg": {
+      "count": 726,
+      "mean": 81.26832,
+      "std": 6.132435,
+      "min": 63.0,
+      "25%": 77.0,
+      "50%": 81.0,
+      "75%": 86.0,
+      "max": 98.0
+    },
+    "Tavg": {
+      "count": 726,
+      "mean": 27.333747,
+      "std": 1.17026,
+      "min": 23.5,
+      "25%": 26.5,
+      "50%": 27.4,
+      "75%": 28.2,
+      "max": 30.0
+    },
+    "FRI_v3_Final": {
+      "count": 726,
+      "mean": 44.379675,
+      "std": 14.427815,
+      "min": 8.503937,
+      "25%": 33.264617,
+      "50%": 44.489454,
+      "75%": 56.128344,
+      "max": 79.006024
+    }
+  },
+  "train_date_range": {
+    "start": "2024-07-01",
+    "end": "2026-02-01"
+  },
+  "test_date_range": {
+    "start": "2026-02-02",
+    "end": "2026-06-26"
+  },
+  "data_validation_results": {
+    "record_count_726": true,
+    "columns_exact": true,
+    "no_duplicate_rows": true,
+    "no_duplicate_dates": true,
+    "date_range_unchanged": true,
+    "chronological_order_preserved": true,
+    "features_exact": true,
+    "target_present": true,
+    "target_no_nan": true
+  },
+  "all_validations_passed": true,
+  "v2_consistency_check": {
+    "same_preprocessing_flow": true,
+    "same_feature_order": true,
+    "same_export_format": true,
+    "same_split_strategy": true,
+    "same_imputation_method": true,
+    "different_target": true,
+    "different_weights": true,
+    "different_version": true
+  }
+}

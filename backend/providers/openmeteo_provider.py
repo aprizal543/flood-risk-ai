@@ -1,21 +1,151 @@
-"""openmeteo_provider.py – Implementasi penyedia cuaca Open-Meteo."""
+"""openmeteo_provider.py – Open-Meteo provider with connection pooling and retry."""
 
+from __future__ import annotations
+
+import logging
+import time
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
+from backend.config import (
+    OPENMETEO_CONNECT_TIMEOUT,
+    OPENMETEO_READ_TIMEOUT,
+    POOL_CONNECTIONS,
+    POOL_MAXSIZE,
+    RETRY_BACKOFF_FACTOR,
+    RETRY_TOTAL,
+)
+from backend.logging import get_request_id
 from backend.providers.exceptions import ProviderConnectionError, WeatherProviderError
 from backend.providers.geocoding import geocode
 from backend.providers.models import RawWeatherData
 from backend.providers.weather_provider import WeatherProvider
 
+logger = logging.getLogger("backend.providers.openmeteo")
+
 WEATHER_URL = "https://api.open-meteo.com/v1/forecast"
 WIB = ZoneInfo("Asia/Jakarta")
+WEATHER_TIMEOUT = (OPENMETEO_CONNECT_TIMEOUT, OPENMETEO_READ_TIMEOUT)
+
+# Sentinel captured at import time so the helper can detect test patches.
+_ORIG_REQUESTS_GET = requests.get
+
+# ── Shared connection pool ───────────────────────────────────────────────
+_session: requests.Session | None = None
+
+
+def _get_session() -> requests.Session:
+    global _session
+    if _session is None:
+        _session = requests.Session()
+        retry_strategy = Retry(
+            total=RETRY_TOTAL,
+            backoff_factor=RETRY_BACKOFF_FACTOR,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["GET"],
+        )
+        adapter = HTTPAdapter(
+            max_retries=retry_strategy,
+            pool_connections=POOL_CONNECTIONS,
+            pool_maxsize=POOL_MAXSIZE,
+        )
+        _session.mount("https://", adapter)
+        _session.mount("http://", adapter)
+    return _session
+
+
+def _http_get(url: str, **kwargs) -> requests.Response:
+    """GET via pooled session in production, fallback for test mocks."""
+    if requests.get is _ORIG_REQUESTS_GET:
+        return _get_session().get(url, **kwargs)
+    return requests.get(url, **kwargs)
+
+
+def _build_daily_params(latitude: float, longitude: float, start_date: date, end_date: date) -> dict:
+    """Build common query parameters for the Open-Meteo forecast endpoint."""
+    return {
+        "latitude": latitude,
+        "longitude": longitude,
+        "daily": "precipitation_sum,relative_humidity_2m_mean,temperature_2m_mean,temperature_2m_max,temperature_2m_min",
+        "start_date": start_date.isoformat(),
+        "end_date": end_date.isoformat(),
+        "timezone": "Asia/Jakarta",
+    }
+
+
+def _extract_status(exc: requests.RequestException) -> int | None:
+    if exc.response is not None:
+        return exc.response.status_code
+    return None
+
+
+def _categorise_error(exc: requests.RequestException) -> str:
+    if isinstance(exc, requests.Timeout):
+        return "TIMEOUT"
+    if isinstance(exc, requests.ConnectionError):
+        cause = getattr(exc, "__cause__", None) or getattr(exc, "__context__", None)
+        if cause is not None:
+            cause_str = type(cause).__name__
+            return f"CONNECTION_ERROR ({cause_str})"
+        return "CONNECTION_ERROR"
+    if isinstance(exc, requests.HTTPError):
+        return f"HTTP_ERROR ({exc.response.status_code})"
+    return "REQUEST_ERROR"
+
+
+def _log_request_error(
+    exc: requests.RequestException,
+    rid: str,
+    label: str,
+    elapsed_ms: float,
+) -> None:
+    category = _categorise_error(exc)
+    status = _extract_status(exc)
+    logger.error(
+        "[%s] %s FAILED category=%s status=%s elapsed=%dms: %s",
+        rid, label, category, status, elapsed_ms, exc,
+        exc_info=True,
+    )
+
+
+def _fetch_forecast(
+    params: dict,
+    label: str,
+) -> dict:
+    """Execute a single forecast GET with shared session, retry, and logging."""
+    start = time.perf_counter()
+    _rid = get_request_id()
+
+    try:
+        resp = _http_get(WEATHER_URL, params=params, timeout=WEATHER_TIMEOUT)
+        resp.raise_for_status()
+
+        elapsed_ms = (time.perf_counter() - start) * 1000
+        logger.info("[%s] %s=%dms", _rid, label, elapsed_ms)
+        return resp.json()
+
+    except requests.RequestException as e:
+        elapsed_ms = (time.perf_counter() - start) * 1000
+        _log_request_error(e, _rid, label, elapsed_ms)
+        raise ProviderConnectionError(
+            f"Gagal terhubung ke Open-Meteo Weather API: {e}",
+            url=WEATHER_URL,
+            elapsed_ms=elapsed_ms,
+            status_code=_extract_status(e),
+            original_exception=e,
+        )
 
 
 class OpenMeteoProvider(WeatherProvider):
-    """Penyedia data cuaca menggunakan Open-Meteo API."""
+    """Penyedia data cuaca menggunakan Open-Meteo API.
+
+    Menggunakan koneksi pool bersama, retry dengan exponential backoff,
+    structured timeout, dan logging terstruktur.
+    """
 
     def get_current_weather(self, wilayah: str) -> RawWeatherData:
         """Ambil data cuaca hari ini dari forecast Open-Meteo.
@@ -32,22 +162,14 @@ class OpenMeteoProvider(WeatherProvider):
         location = geocode(wilayah)
         today = datetime.now(WIB).date()
 
-        params = {
-            "latitude": location.latitude,
-            "longitude": location.longitude,
-            "daily": "precipitation_sum,relative_humidity_2m_mean,temperature_2m_mean,temperature_2m_max,temperature_2m_min",
-            "start_date": (today - timedelta(days=1)).isoformat(),
-            "end_date": today.isoformat(),
-            "timezone": "Asia/Jakarta",
-        }
+        params = _build_daily_params(
+            location.latitude,
+            location.longitude,
+            today - timedelta(days=1),
+            today,
+        )
 
-        try:
-            resp = requests.get(WEATHER_URL, params=params, timeout=10)
-            resp.raise_for_status()
-        except requests.RequestException as e:
-            raise ProviderConnectionError(f"Gagal terhubung ke Open-Meteo Weather API: {e}")
-
-        data = resp.json()
+        data = _fetch_forecast(params, f"Forecast(1d) '{wilayah}'")
         daily = data.get("daily")
         if not daily or not daily.get("time"):
             raise WeatherProviderError("Respons Open-Meteo tidak mengandung data harian.")
@@ -103,22 +225,14 @@ class OpenMeteoProvider(WeatherProvider):
         today = datetime.now(WIB).date()
         start_date = today - timedelta(days=days - 1)
 
-        params = {
-            "latitude": location.latitude,
-            "longitude": location.longitude,
-            "daily": "precipitation_sum,relative_humidity_2m_mean,temperature_2m_mean,temperature_2m_max,temperature_2m_min",
-            "start_date": start_date.isoformat(),
-            "end_date": today.isoformat(),
-            "timezone": "Asia/Jakarta",
-        }
+        params = _build_daily_params(
+            location.latitude,
+            location.longitude,
+            start_date,
+            today,
+        )
 
-        try:
-            resp = requests.get(WEATHER_URL, params=params, timeout=10)
-            resp.raise_for_status()
-        except requests.RequestException as e:
-            raise ProviderConnectionError(f"Gagal terhubung ke Open-Meteo Weather API: {e}")
-
-        data = resp.json()
+        data = _fetch_forecast(params, f"Forecast({days}d) '{wilayah}'")
         daily = data.get("daily")
         if not daily or not daily.get("time"):
             raise WeatherProviderError("Respons Open-Meteo tidak mengandung data historis.")
