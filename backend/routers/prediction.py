@@ -13,6 +13,7 @@ from backend.schemas.request import PrediksiManualRequest, PrediksiEngineeredReq
 from backend.schemas.response import PrediksiResponse, ErrorResponse
 from backend.services.prediction_gateway import predict_from_raw
 from backend.services.predictor_service import run_prediction
+from backend.services.recommendation_gateway import augment_with_knowledge
 
 logger = logging.getLogger("backend.prediction")
 router = APIRouter(tags=["Prediksi"])
@@ -51,6 +52,13 @@ def predict_manual(
         result = predict_from_raw(weather, model=req.model, top_n=req.top_n)
     except (ValueError, KeyError) as e:
         raise HTTPException(status_code=422, detail=str(e))
+    result = augment_with_knowledge(
+        fri=result["fri"],
+        risk_label=result.get("tingkat_risiko", ""),
+        top_n=req.top_n,
+        base_result=result,
+        request=request,
+    )
     logger.info("Prediksi selesai: FRI=%.2f, risiko=%s", result["fri"], result["tingkat_risiko"])
     return PrediksiResponse(**result)
 
@@ -76,5 +84,12 @@ def predict_engineered(
         result = run_prediction(features, model=req.model, top_n=req.top_n)
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
+    result = augment_with_knowledge(
+        fri=result["fri"],
+        risk_label=result.get("tingkat_risiko", ""),
+        top_n=req.top_n,
+        base_result=result,
+        request=request,
+    )
     logger.info("Prediksi selesai: FRI=%.2f", result["fri"])
     return PrediksiResponse(**result)

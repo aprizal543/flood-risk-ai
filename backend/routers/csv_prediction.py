@@ -3,7 +3,7 @@
 import csv
 import io
 import logging
-from datetime import date, datetime
+from datetime import datetime
 
 from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
 from fastapi.responses import StreamingResponse
@@ -14,6 +14,7 @@ from backend.security.limits import PREDICTION_LIMIT
 from backend.security.rate_limit import limiter
 from backend.schemas.response import ErrorResponse
 from backend.services.prediction_gateway import predict_from_raw
+from backend.services.recommendation_gateway import augment_with_knowledge
 
 logger = logging.getLogger("backend.csv")
 router = APIRouter(tags=["Prediksi CSV"])
@@ -120,6 +121,14 @@ async def predict_csv(
         result = predict_from_raw(weather, history=history, model="rf", top_n=5)
     except (ValueError, KeyError) as e:
         raise HTTPException(status_code=422, detail=str(e))
+
+    result = augment_with_knowledge(
+        fri=result["fri"],
+        risk_label=result.get("tingkat_risiko", ""),
+        top_n=5,
+        base_result=result,
+        request=request,
+    )
 
     logger.info("CSV prediksi: tanggal=%s FRI=%.2f %s (%d baris historis)",
                 weather.tanggal, result["fri"], result["tingkat_risiko"],

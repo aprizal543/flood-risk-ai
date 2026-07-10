@@ -13,6 +13,7 @@ from backend.security.limits import REALTIME_LIMIT
 from backend.security.rate_limit import limiter
 from backend.providers.openmeteo_provider import OpenMeteoProvider
 from backend.services.prediction_gateway import predict_from_raw
+from backend.services.recommendation_gateway import augment_with_knowledge
 
 logger = logging.getLogger("backend.realtime")
 router = APIRouter(tags=["Prediksi Realtime"])
@@ -56,6 +57,14 @@ def predict_realtime(
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
 
+    result = augment_with_knowledge(
+        fri=result["fri"],
+        risk_label=result.get("tingkat_risiko", ""),
+        top_n=top_n,
+        base_result=result,
+        request=request,
+    )
+
     logger.info("Realtime: %s FRI=%.2f %s (%d hari historis)",
                 wilayah, result["fri"], result["tingkat_risiko"],
                 len(preceding) if preceding else 0)
@@ -90,4 +99,6 @@ def predict_realtime(
         "tingkat_risiko": result["tingkat_risiko"],
         "rekomendasi": result["rekomendasi"],
         "mitigasi": result["mitigasi"],
+        "knowledge_recommendation": result.get("knowledge_recommendation"),
+        "knowledge_source": result.get("knowledge_source"),
     }

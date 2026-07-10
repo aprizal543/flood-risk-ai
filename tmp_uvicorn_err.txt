@@ -1,0 +1,167 @@
+INFO:     Started server process [1936]
+INFO:     Waiting for application startup.
+2026-07-10 19:32:37 [INFO] backend.knowledge.loader: Knowledge loaded: 22 commodities, 5 categories, schema v2.1, 1.2 ms
+2026-07-10 19:32:37 [INFO] backend.knowledge.knowledge_base: KnowledgeBase initialized: 22 commodities, schema v2.1, 2.2 ms
+2026-07-10 19:32:37 [INFO] backend.decision.rules: InferenceRuleEngine initialized: 5 vulnerability levels × 3 risk levels = 15 rules
+2026-07-10 19:32:37 [INFO] backend.decision.rules: InferenceRuleEngine initialized: 5 vulnerability levels × 3 risk levels = 15 rules
+2026-07-10 19:32:37 [INFO] backend.decision.engine: DecisionEngine initialized with 22 commodities, 15 rules
+2026-07-10 19:32:37 [INFO] backend.startup: Warm-up complete in 71 ms
+2026-07-10 19:32:37 [INFO] backend.app: Knowledge Recommendation : ENABLED
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-07-10 19:51:20 [INFO] backend: [0cdec1ed] Request: GET /api/auth/me
+2026-07-10 19:51:20 [INFO] backend: [685bceef] Request: GET /api/prediksi/realtime?wilayah=Pekanbaru&model=rf&top_n=5
+2026-07-10 19:51:22 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 19:51:22 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 19:51:22 [INFO] backend: [0cdec1ed] Response: 200 (1663ms)
+2026-07-10 19:51:22 [INFO] backend.providers.geocoding: [685bceef] Geocoding Cache MISS 'Pekanbaru'
+2026-07-10 19:51:22 [INFO] backend.providers.geocoding: [685bceef] Geocoding HTTP 'Pekanbaru'=837ms
+2026-07-10 19:51:22 [INFO] backend.providers.openmeteo: [685bceef] Forecast Cache MISS Forecast(14d) 'Pekanbaru'
+2026-07-10 19:51:23 [INFO] backend: [a3a8e950] Request: GET /api/auth/me
+2026-07-10 19:51:23 [INFO] backend: [bd6c8dc2] Request: GET /api/prediksi/realtime?wilayah=Pekanbaru&model=rf&top_n=5
+2026-07-10 19:51:24 [INFO] backend.providers.openmeteo: [685bceef] Forecast(14d) 'Pekanbaru'=1199ms
+2026-07-10 19:51:24 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 19:51:24 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 19:51:24 [INFO] backend: [a3a8e950] Response: 200 (352ms)
+2026-07-10 19:51:24 [INFO] backend.providers.geocoding: [bd6c8dc2] Geocoding Cache HIT 'Pekanbaru'
+2026-07-10 19:51:24 [INFO] backend.providers.openmeteo: [bd6c8dc2] Forecast Cache HIT Forecast(14d) 'Pekanbaru'
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB ENTRY | FRI=40.99 | risk=Risiko Sedang | top_n=5
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB FLAG | enabled=True
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB SERVICE READY | exists=True | ready=True | type=KnowledgeRecommendationService
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB ENGINE | invoking=KnowledgeRecommendationService.recommend
+2026-07-10 19:51:24 [INFO] backend.decision.engine: Decision executed in 0.4 ms: FRI=41.0 (Sedang) | R=6 A=5 N=11
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB MAPPER | recommended=6 | alternative=5 | not_recommended=11
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB ENTRY | FRI=40.99 | risk=Risiko Sedang | top_n=5
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB RESPONSE GENERATED | has_knowledge_recommendation=True | has_knowledge_source=True
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB FLAG | enabled=True
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB recommendation: FRI=41.0 Risiko Sedang | R=6 A=5 N=11 | 0.4ms
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB SERVICE READY | exists=True | ready=True | type=KnowledgeRecommendationService
+2026-07-10 19:51:24 [INFO] backend.realtime: Realtime: Pekanbaru FRI=40.99 Risiko Sedang (13 hari historis)
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB ENGINE | invoking=KnowledgeRecommendationService.recommend
+2026-07-10 19:51:24 [INFO] backend: [bd6c8dc2] Response: 200 (875ms)
+2026-07-10 19:51:24 [INFO] backend.decision.engine: Decision executed in 0.3 ms: FRI=41.0 (Sedang) | R=6 A=5 N=11
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB MAPPER | recommended=6 | alternative=5 | not_recommended=11
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB RESPONSE GENERATED | has_knowledge_recommendation=True | has_knowledge_source=True
+2026-07-10 19:51:24 [INFO] backend.services.recommendation_gateway: KB recommendation: FRI=41.0 Risiko Sedang | R=6 A=5 N=11 | 0.3ms
+2026-07-10 19:51:24 [INFO] backend.realtime: Realtime: Pekanbaru FRI=40.99 Risiko Sedang (13 hari historis)
+2026-07-10 19:51:24 [INFO] backend: [685bceef] Response: 200 (4308ms)
+2026-07-10 19:53:43 [INFO] backend: [d65649a7] Request: POST /api/ai/chat
+2026-07-10 19:53:43 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 19:53:44 [INFO] httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-10 19:53:44 [INFO] backend.llm: LLM: provider=groq model=llama-3.1-8b-instant latency=536ms status=ok
+2026-07-10 19:53:44 [INFO] backend: [d65649a7] Response: 200 (1319ms)
+2026-07-10 23:39:49 [ERROR] asyncio: Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "D:\Miniconda\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "D:\Miniconda\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-07-10 23:39:49 [INFO] backend: [4c3537b0] Request: GET /api/prediksi/realtime?wilayah=Pekanbaru&model=rf&top_n=5
+2026-07-10 23:39:49 [INFO] backend: [93ffcf44] Request: GET /api/auth/me
+2026-07-10 23:39:49 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 23:39:49 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 23:39:49 [INFO] backend.providers.geocoding: [4c3537b0] Geocoding Cache HIT 'Pekanbaru'
+2026-07-10 23:39:49 [INFO] backend: [93ffcf44] Response: 200 (343ms)
+2026-07-10 23:39:49 [INFO] backend.providers.openmeteo: [4c3537b0] Forecast Cache MISS Forecast(14d) 'Pekanbaru'
+2026-07-10 23:39:50 [INFO] backend.providers.openmeteo: [4c3537b0] Forecast(14d) 'Pekanbaru'=1194ms
+2026-07-10 23:39:51 [INFO] backend.services.recommendation_gateway: KB ENTRY | FRI=40.99 | risk=Risiko Sedang | top_n=5
+2026-07-10 23:39:51 [INFO] backend.services.recommendation_gateway: KB FLAG | enabled=True
+2026-07-10 23:39:51 [INFO] backend.services.recommendation_gateway: KB SERVICE READY | exists=True | ready=True | type=KnowledgeRecommendationService
+2026-07-10 23:39:51 [INFO] backend.services.recommendation_gateway: KB ENGINE | invoking=KnowledgeRecommendationService.recommend
+2026-07-10 23:39:51 [INFO] backend.decision.engine: Decision executed in 10.6 ms: FRI=41.0 (Sedang) | R=6 A=5 N=11
+2026-07-10 23:39:51 [INFO] backend.services.recommendation_gateway: KB MAPPER | recommended=6 | alternative=5 | not_recommended=11
+2026-07-10 23:39:51 [INFO] backend.services.recommendation_gateway: KB RESPONSE GENERATED | has_knowledge_recommendation=True | has_knowledge_source=True
+2026-07-10 23:39:51 [INFO] backend.services.recommendation_gateway: KB recommendation: FRI=41.0 Risiko Sedang | R=6 A=5 N=11 | 10.6ms
+2026-07-10 23:39:51 [INFO] backend.realtime: Realtime: Pekanbaru FRI=40.99 Risiko Sedang (13 hari historis)
+2026-07-10 23:39:51 [INFO] backend: [4c3537b0] Response: 200 (2338ms)
+2026-07-10 23:43:42 [INFO] backend: [52810ba6] Request: GET /api/auth/me
+2026-07-10 23:43:43 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 23:43:43 [INFO] backend: [52810ba6] Response: 200 (808ms)
+2026-07-10 23:43:46 [INFO] backend: [bed4fdea] Request: GET /api/auth/me
+2026-07-10 23:43:46 [INFO] backend: [7fc466b0] Request: GET /api/prediksi/realtime?wilayah=Pekanbaru&model=rf&top_n=5
+2026-07-10 23:43:46 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 23:43:46 [INFO] backend: [bed4fdea] Response: 200 (219ms)
+2026-07-10 23:43:46 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-10 23:43:46 [INFO] backend.providers.geocoding: [7fc466b0] Geocoding Cache HIT 'Pekanbaru'
+2026-07-10 23:43:46 [INFO] backend.providers.openmeteo: [7fc466b0] Forecast Cache HIT Forecast(14d) 'Pekanbaru'
+2026-07-10 23:43:46 [INFO] backend.services.recommendation_gateway: KB ENTRY | FRI=40.99 | risk=Risiko Sedang | top_n=5
+2026-07-10 23:43:46 [INFO] backend.services.recommendation_gateway: KB FLAG | enabled=True
+2026-07-10 23:43:46 [INFO] backend.services.recommendation_gateway: KB SERVICE READY | exists=True | ready=True | type=KnowledgeRecommendationService
+2026-07-10 23:43:46 [INFO] backend.services.recommendation_gateway: KB ENGINE | invoking=KnowledgeRecommendationService.recommend
+2026-07-10 23:43:46 [INFO] backend.decision.engine: Decision executed in 0.4 ms: FRI=41.0 (Sedang) | R=6 A=5 N=11
+2026-07-10 23:43:46 [INFO] backend.services.recommendation_gateway: KB MAPPER | recommended=6 | alternative=5 | not_recommended=11
+2026-07-10 23:43:46 [INFO] backend.services.recommendation_gateway: KB RESPONSE GENERATED | has_knowledge_recommendation=True | has_knowledge_source=True
+2026-07-10 23:43:46 [INFO] backend.services.recommendation_gateway: KB recommendation: FRI=41.0 Risiko Sedang | R=6 A=5 N=11 | 0.4ms
+2026-07-10 23:43:46 [INFO] backend.realtime: Realtime: Pekanbaru FRI=40.99 Risiko Sedang (13 hari historis)
+2026-07-10 23:43:46 [INFO] backend: [7fc466b0] Response: 200 (825ms)
+2026-07-11 01:22:04 [INFO] backend: [578dd3f4] Request: GET /api/auth/me
+2026-07-11 01:22:04 [INFO] backend: [2bc91097] Request: GET /api/prediksi/realtime?wilayah=Pekanbaru&model=rf&top_n=5
+2026-07-11 01:22:04 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-11 01:22:04 [INFO] backend: [578dd3f4] Response: 200 (389ms)
+2026-07-11 01:22:04 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-11 01:22:04 [INFO] backend.providers.geocoding: [2bc91097] Geocoding Cache HIT 'Pekanbaru'
+2026-07-11 01:22:04 [INFO] backend.providers.openmeteo: [2bc91097] Forecast Cache MISS Forecast(14d) 'Pekanbaru'
+2026-07-11 01:22:05 [INFO] backend.providers.openmeteo: [2bc91097] Forecast(14d) 'Pekanbaru'=967ms
+2026-07-11 01:22:05 [INFO] backend.services.recommendation_gateway: KB ENTRY | FRI=39.15 | risk=Risiko Sedang | top_n=5
+2026-07-11 01:22:05 [INFO] backend.services.recommendation_gateway: KB FLAG | enabled=True
+2026-07-11 01:22:05 [INFO] backend.services.recommendation_gateway: KB SERVICE READY | exists=True | ready=True | type=KnowledgeRecommendationService
+2026-07-11 01:22:05 [INFO] backend.services.recommendation_gateway: KB ENGINE | invoking=KnowledgeRecommendationService.recommend
+2026-07-11 01:22:05 [INFO] backend.decision.engine: Decision executed in 1.6 ms: FRI=39.1 (Sedang) | R=6 A=5 N=11
+2026-07-11 01:22:05 [INFO] backend.services.recommendation_gateway: KB MAPPER | recommended=6 | alternative=5 | not_recommended=11
+2026-07-11 01:22:05 [INFO] backend.services.recommendation_gateway: KB RESPONSE GENERATED | has_knowledge_recommendation=True | has_knowledge_source=True
+2026-07-11 01:22:05 [INFO] backend.services.recommendation_gateway: KB recommendation: FRI=39.1 Risiko Sedang | R=6 A=5 N=11 | 1.6ms
+2026-07-11 01:22:05 [INFO] backend.realtime: Realtime: Pekanbaru FRI=39.15 Risiko Sedang (13 hari historis)
+2026-07-11 01:22:05 [INFO] backend: [2bc91097] Response: 200 (1549ms)
+2026-07-11 01:22:53 [INFO] backend: [6733e03e] Request: GET /api/prediksi/realtime?wilayah=Borneo&model=rf&top_n=5
+2026-07-11 01:22:53 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-11 01:22:53 [INFO] backend.providers.geocoding: [6733e03e] Geocoding Cache MISS 'Borneo'
+2026-07-11 01:22:54 [INFO] backend.providers.geocoding: [6733e03e] Geocoding HTTP 'Borneo'=800ms
+2026-07-11 01:22:54 [INFO] backend.providers.openmeteo: [6733e03e] Forecast Cache MISS Forecast(14d) 'Borneo'
+2026-07-11 01:22:55 [INFO] backend.providers.openmeteo: [6733e03e] Forecast(14d) 'Borneo'=1044ms
+2026-07-11 01:22:55 [INFO] backend.services.recommendation_gateway: KB ENTRY | FRI=59.65 | risk=Risiko Sedang | top_n=5
+2026-07-11 01:22:55 [INFO] backend.services.recommendation_gateway: KB FLAG | enabled=True
+2026-07-11 01:22:55 [INFO] backend.services.recommendation_gateway: KB SERVICE READY | exists=True | ready=True | type=KnowledgeRecommendationService
+2026-07-11 01:22:55 [INFO] backend.services.recommendation_gateway: KB ENGINE | invoking=KnowledgeRecommendationService.recommend
+2026-07-11 01:22:55 [INFO] backend.decision.engine: Decision executed in 0.3 ms: FRI=59.6 (Sedang) | R=6 A=5 N=11
+2026-07-11 01:22:55 [INFO] backend.services.recommendation_gateway: KB MAPPER | recommended=6 | alternative=5 | not_recommended=11
+2026-07-11 01:22:55 [INFO] backend.services.recommendation_gateway: KB RESPONSE GENERATED | has_knowledge_recommendation=True | has_knowledge_source=True
+2026-07-11 01:22:55 [INFO] backend.services.recommendation_gateway: KB recommendation: FRI=59.6 Risiko Sedang | R=6 A=5 N=11 | 0.3ms
+2026-07-11 01:22:55 [INFO] backend.realtime: Realtime: Borneo FRI=59.65 Risiko Sedang (13 hari historis)
+2026-07-11 01:22:55 [INFO] backend: [6733e03e] Response: 200 (2086ms)
+2026-07-11 01:23:15 [INFO] backend: [9db0b0e3] Request: GET /api/prediksi/realtime?wilayah=Ujung+Batu&model=rf&top_n=5
+2026-07-11 01:23:15 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-11 01:23:15 [INFO] backend.providers.geocoding: [9db0b0e3] Geocoding Cache MISS 'Ujung Batu'
+2026-07-11 01:23:15 [INFO] backend.providers.geocoding: [9db0b0e3] Geocoding HTTP 'Ujung Batu'=276ms
+2026-07-11 01:23:15 [INFO] backend.providers.openmeteo: [9db0b0e3] Forecast Cache MISS Forecast(14d) 'Ujung Batu'
+2026-07-11 01:23:15 [INFO] backend.providers.openmeteo: [9db0b0e3] Forecast(14d) 'Ujung Batu'=223ms
+2026-07-11 01:23:15 [INFO] backend.services.recommendation_gateway: KB ENTRY | FRI=46.23 | risk=Risiko Sedang | top_n=5
+2026-07-11 01:23:15 [INFO] backend.services.recommendation_gateway: KB FLAG | enabled=True
+2026-07-11 01:23:15 [INFO] backend.services.recommendation_gateway: KB SERVICE READY | exists=True | ready=True | type=KnowledgeRecommendationService
+2026-07-11 01:23:15 [INFO] backend.services.recommendation_gateway: KB ENGINE | invoking=KnowledgeRecommendationService.recommend
+2026-07-11 01:23:15 [INFO] backend.decision.engine: Decision executed in 0.4 ms: FRI=46.2 (Sedang) | R=6 A=5 N=11
+2026-07-11 01:23:15 [INFO] backend.services.recommendation_gateway: KB MAPPER | recommended=6 | alternative=5 | not_recommended=11
+2026-07-11 01:23:15 [INFO] backend.services.recommendation_gateway: KB RESPONSE GENERATED | has_knowledge_recommendation=True | has_knowledge_source=True
+2026-07-11 01:23:15 [INFO] backend.services.recommendation_gateway: KB recommendation: FRI=46.2 Risiko Sedang | R=6 A=5 N=11 | 0.4ms
+2026-07-11 01:23:15 [INFO] backend.realtime: Realtime: Ujung Batu FRI=46.23 Risiko Sedang (13 hari historis)
+2026-07-11 01:23:15 [INFO] backend: [9db0b0e3] Response: 200 (829ms)
+2026-07-11 01:23:32 [INFO] backend: [de3fce9d] Request: GET /api/prediksi/realtime?wilayah=Bangkinang&model=rf&top_n=5
+2026-07-11 01:23:33 [INFO] httpx: HTTP Request: GET https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+2026-07-11 01:23:33 [INFO] backend.providers.geocoding: [de3fce9d] Geocoding Cache MISS 'Bangkinang'
+2026-07-11 01:23:33 [INFO] backend.providers.geocoding: [de3fce9d] Geocoding HTTP 'Bangkinang'=203ms
+2026-07-11 01:23:33 [INFO] backend.providers.openmeteo: [de3fce9d] Forecast Cache MISS Forecast(14d) 'Bangkinang'
+2026-07-11 01:23:33 [INFO] backend.providers.openmeteo: [de3fce9d] Forecast(14d) 'Bangkinang'=257ms
+2026-07-11 01:23:33 [INFO] backend.services.recommendation_gateway: KB ENTRY | FRI=43.11 | risk=Risiko Sedang | top_n=5
+2026-07-11 01:23:33 [INFO] backend.services.recommendation_gateway: KB FLAG | enabled=True
+2026-07-11 01:23:33 [INFO] backend.services.recommendation_gateway: KB SERVICE READY | exists=True | ready=True | type=KnowledgeRecommendationService
+2026-07-11 01:23:33 [INFO] backend.services.recommendation_gateway: KB ENGINE | invoking=KnowledgeRecommendationService.recommend
+2026-07-11 01:23:33 [INFO] backend.decision.engine: Decision executed in 0.3 ms: FRI=43.1 (Sedang) | R=6 A=5 N=11
+2026-07-11 01:23:33 [INFO] backend.services.recommendation_gateway: KB MAPPER | recommended=6 | alternative=5 | not_recommended=11
+2026-07-11 01:23:33 [INFO] backend.services.recommendation_gateway: KB RESPONSE GENERATED | has_knowledge_recommendation=True | has_knowledge_source=True
+2026-07-11 01:23:33 [INFO] backend.services.recommendation_gateway: KB recommendation: FRI=43.1 Risiko Sedang | R=6 A=5 N=11 | 0.3ms
+2026-07-11 01:23:33 [INFO] backend.realtime: Realtime: Bangkinang FRI=43.11 Risiko Sedang (13 hari historis)
+2026-07-11 01:23:33 [INFO] backend: [de3fce9d] Response: 200 (665ms)
+2026-07-11 01:23:45 [INFO] backend: [6f1ea505] Request: POST /api/auth/logout
+2026-07-11 01:23:46 [INFO] httpx: HTTP Request: POST https://qmkwapgkpfveymbhknug.supabase.co/auth/v1/logout "HTTP/1.1 204 No Content"
+2026-07-11 01:23:46 [INFO] backend: [6f1ea505] Response: 422 (355ms)

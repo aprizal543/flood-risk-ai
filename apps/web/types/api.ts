@@ -24,6 +24,26 @@ export interface Mitigasi {
   tindakan: string;
 }
 
+export interface KnowledgeCommodityItem {
+  komoditas: string;
+  komoditas_id: string;
+  vulnerability: string;
+  max_inundation: string;
+  maximum_inundation_duration: string;
+  main_impacts: string[];
+  damage_symptoms: string[];
+  impacts: string[];
+  symptoms: string[];
+  reason: string;
+  source?: string;
+}
+
+export interface KnowledgeRecommendation {
+  recommended: KnowledgeCommodityItem[];
+  alternative: KnowledgeCommodityItem[];
+  not_recommended: KnowledgeCommodityItem[];
+}
+
 export interface PrediksiRealtimeResponse {
   status: string;
   wilayah: string;
@@ -43,4 +63,5 @@ export interface PrediksiRealtimeResponse {
   tingkat_risiko: string;
   rekomendasi: Rekomendasi[];
   mitigasi: Mitigasi[];
+  knowledge_recommendation?: KnowledgeRecommendation;
 }

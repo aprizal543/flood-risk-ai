@@ -18,6 +18,7 @@ from fastapi.responses import JSONResponse
 
 from backend.middleware import LoggingMiddleware, SecurityHeadersMiddleware
 from backend.startup import AppStartup
+from backend.services.recommendation_gateway import is_knowledge_active
 from backend.security.rate_limit import limiter, rate_limit_exceeded_handler
 from slowapi.middleware import SlowAPIMiddleware
 from slowapi.errors import RateLimitExceeded
@@ -111,6 +112,15 @@ def on_startup():
     startup = AppStartup()
     app.state.startup = startup
     startup.warm_up()
+    app.state.knowledge_base = startup.knowledge_base
+    app.state.decision_engine = startup.decision_engine
+    app.state.recommendation_service = startup.recommendation_service
+    if is_knowledge_active():
+        logging.getLogger(__name__).info("Knowledge Recommendation : ENABLED")
+    else:
+        logging.getLogger(__name__).info(
+            "Knowledge Recommendation : DISABLED | reason=feature_flag_false"
+        )
 
 
 app.include_router(health.router)

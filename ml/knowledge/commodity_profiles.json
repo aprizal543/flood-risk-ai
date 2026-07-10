@@ -1,7 +1,383 @@
 [
   {
-    "id": "kangkung",
-    "nama": "Kangkung",
+    "id": "cabai",
+    "nama": "Cabai",
+    "nama_ilmiah": "Capsicum annuum",
+    "tipe_komoditas": "sayuran_buah",
+    "toleransi_banjir": "Sangat Rendah",
+    "risiko_optimal": "Rendah",
+    "kebutuhan_drainase": "Tinggi",
+    "durasi_tanam_hari": 90,
+    "prioritas": "Tinggi",
+    "catatan": "Sangat rentan terhadap genangan. Akar membusuk dalam <24 jam tanpa oksigen.",
+    "main_impacts": [
+      "Akar langsung membusuk akibat ketiadaan oksigen",
+      "Daun cepat menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Tanaman bisa mati total dalam hitungan hari"
+    ],
+    "damage_symptoms": [
+      "Busuk akar akibat ketiadaan oksigen",
+      "Daun menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Kematian total tanaman dalam hitungan hari"
+    ]
+  },
+  {
+    "id": "tomat",
+    "nama": "Tomat",
+    "nama_ilmiah": "Solanum lycopersicum",
+    "tipe_komoditas": "sayuran_buah",
+    "toleransi_banjir": "Sangat Rendah",
+    "risiko_optimal": "Rendah",
+    "kebutuhan_drainase": "Tinggi",
+    "durasi_tanam_hari": 80,
+    "prioritas": "Sedang",
+    "catatan": "Sangat rentan terhadap genangan. Akar membusuk dalam <24 jam tanpa oksigen.",
+    "main_impacts": [
+      "Akar langsung membusuk akibat ketiadaan oksigen",
+      "Daun cepat menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Tanaman bisa mati total dalam hitungan hari"
+    ],
+    "damage_symptoms": [
+      "Busuk akar akibat ketiadaan oksigen",
+      "Daun menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Kematian total tanaman dalam hitungan hari"
+    ]
+  },
+  {
+    "id": "bawang_merah",
+    "nama": "Bawang Merah",
+    "nama_ilmiah": "Allium cepa var. aggregatum",
+    "tipe_komoditas": "sayuran_umbi",
+    "toleransi_banjir": "Sangat Rendah",
+    "risiko_optimal": "Rendah",
+    "kebutuhan_drainase": "Tinggi",
+    "durasi_tanam_hari": 70,
+    "prioritas": "Tinggi",
+    "catatan": "Sangat rentan terhadap genangan. Akar membusuk dalam <24 jam tanpa oksigen.",
+    "main_impacts": [
+      "Akar langsung membusuk akibat ketiadaan oksigen",
+      "Daun cepat menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Tanaman bisa mati total dalam hitungan hari"
+    ],
+    "damage_symptoms": [
+      "Busuk akar akibat ketiadaan oksigen",
+      "Daun menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Kematian total tanaman dalam hitungan hari"
+    ]
+  },
+  {
+    "id": "kentang",
+    "nama": "Kentang",
+    "nama_ilmiah": "Solanum tuberosum",
+    "tipe_komoditas": "sayuran_umbi",
+    "toleransi_banjir": "Sangat Rendah",
+    "risiko_optimal": "Rendah",
+    "kebutuhan_drainase": "Tinggi",
+    "durasi_tanam_hari": 100,
+    "prioritas": "Sedang",
+    "catatan": "Sangat rentan terhadap genangan. Akar membusuk dalam <24 jam tanpa oksigen.",
+    "main_impacts": [
+      "Akar langsung membusuk akibat ketiadaan oksigen",
+      "Daun cepat menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Tanaman bisa mati total dalam hitungan hari"
+    ],
+    "damage_symptoms": [
+      "Busuk akar akibat ketiadaan oksigen",
+      "Daun menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Kematian total tanaman dalam hitungan hari"
+    ]
+  },
+  {
+    "id": "paprika",
+    "nama": "Paprika",
+    "nama_ilmiah": "Capsicum annuum",
+    "tipe_komoditas": "sayuran_buah",
+    "toleransi_banjir": "Sangat Rendah",
+    "risiko_optimal": "Rendah",
+    "kebutuhan_drainase": "Tinggi",
+    "durasi_tanam_hari": 90,
+    "prioritas": "Sedang",
+    "catatan": "Sangat rentan terhadap genangan. Akar membusuk dalam <24 jam tanpa oksigen.",
+    "main_impacts": [
+      "Akar langsung membusuk akibat ketiadaan oksigen",
+      "Daun cepat menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Tanaman bisa mati total dalam hitungan hari"
+    ],
+    "damage_symptoms": [
+      "Busuk akar akibat ketiadaan oksigen",
+      "Daun menguning (klorosis)",
+      "Layu mendadak (epinasti)",
+      "Kematian total tanaman dalam hitungan hari"
+    ]
+  },
+  {
+    "id": "kubis",
+    "nama": "Kubis",
+    "nama_ilmiah": "Brassica oleracea var. capitata",
+    "tipe_komoditas": "sayuran_daun",
+    "toleransi_banjir": "Rendah",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 80,
+    "prioritas": "Sedang",
+    "catatan": "Pertumbuhan kerdil pada genangan 24-48 jam. Rentan penyakit jamur akar.",
+    "main_impacts": [
+      "Pertumbuhan menjadi kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Memicu ledakan penyakit jamur patogen tanah seperti Phytophthora dan Pythium",
+      "Tanaman mulai menunjukkan stres perakaran akibat mulai kehabisan oksigen",
+      "Daun bagian bawah akan sedikit melungkur ke bawah dan layu"
+    ],
+    "damage_symptoms": [
+      "Pertumbuhan kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Serangan jamur patogen tanah (Phytophthora, Pythium)",
+      "Stres perakaran",
+      "Daun bagian bawah melungkur dan layu"
+    ]
+  },
+  {
+    "id": "pakcoy",
+    "nama": "Pakcoy",
+    "nama_ilmiah": "Brassica rapa subsp. chinensis",
+    "tipe_komoditas": "sayuran_daun",
+    "toleransi_banjir": "Rendah",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 35,
+    "prioritas": "Sedang",
+    "catatan": "Pertumbuhan kerdil pada genangan 24-48 jam. Rentan penyakit jamur akar.",
+    "main_impacts": [
+      "Pertumbuhan menjadi kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Memicu ledakan penyakit jamur patogen tanah seperti Phytophthora dan Pythium",
+      "Tanaman mulai menunjukkan stres perakaran akibat mulai kehabisan oksigen",
+      "Daun bagian bawah akan sedikit melungkur ke bawah dan layu"
+    ],
+    "damage_symptoms": [
+      "Pertumbuhan kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Serangan jamur patogen tanah (Phytophthora, Pythium)",
+      "Stres perakaran",
+      "Daun bagian bawah melungkur dan layu"
+    ]
+  },
+  {
+    "id": "sawi",
+    "nama": "Sawi Hijau",
+    "nama_ilmiah": "Brassica juncea",
+    "tipe_komoditas": "sayuran_daun",
+    "toleransi_banjir": "Rendah",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 35,
+    "prioritas": "Tinggi",
+    "catatan": "Pertumbuhan kerdil pada genangan 24-48 jam. Rentan penyakit jamur akar.",
+    "main_impacts": [
+      "Pertumbuhan menjadi kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Memicu ledakan penyakit jamur patogen tanah seperti Phytophthora dan Pythium",
+      "Tanaman mulai menunjukkan stres perakaran akibat mulai kehabisan oksigen",
+      "Daun bagian bawah akan sedikit melungkur ke bawah dan layu"
+    ],
+    "damage_symptoms": [
+      "Pertumbuhan kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Serangan jamur patogen tanah (Phytophthora, Pythium)",
+      "Stres perakaran",
+      "Daun bagian bawah melungkur dan layu"
+    ]
+  },
+  {
+    "id": "terong",
+    "nama": "Terong",
+    "nama_ilmiah": "Solanum melongena",
+    "tipe_komoditas": "sayuran_buah",
+    "toleransi_banjir": "Rendah",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 70,
+    "prioritas": "Sedang",
+    "catatan": "Pertumbuhan kerdil pada genangan 24-48 jam. Rentan penyakit jamur akar.",
+    "main_impacts": [
+      "Pertumbuhan menjadi kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Memicu ledakan penyakit jamur patogen tanah seperti Phytophthora dan Pythium",
+      "Tanaman mulai menunjukkan stres perakaran akibat mulai kehabisan oksigen",
+      "Daun bagian bawah akan sedikit melungkur ke bawah dan layu"
+    ],
+    "damage_symptoms": [
+      "Pertumbuhan kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Serangan jamur patogen tanah (Phytophthora, Pythium)",
+      "Stres perakaran",
+      "Daun bagian bawah melungkur dan layu"
+    ]
+  },
+  {
+    "id": "mentimun",
+    "nama": "Mentimun",
+    "nama_ilmiah": "Cucumis sativus",
+    "tipe_komoditas": "sayuran_buah",
+    "toleransi_banjir": "Rendah",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 45,
+    "prioritas": "Sedang",
+    "catatan": "Pertumbuhan kerdil pada genangan 24-48 jam. Rentan penyakit jamur akar.",
+    "main_impacts": [
+      "Pertumbuhan menjadi kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Memicu ledakan penyakit jamur patogen tanah seperti Phytophthora dan Pythium",
+      "Tanaman mulai menunjukkan stres perakaran akibat mulai kehabisan oksigen",
+      "Daun bagian bawah akan sedikit melungkur ke bawah dan layu"
+    ],
+    "damage_symptoms": [
+      "Pertumbuhan kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Serangan jamur patogen tanah (Phytophthora, Pythium)",
+      "Stres perakaran",
+      "Daun bagian bawah melungkur dan layu"
+    ]
+  },
+  {
+    "id": "kacang_panjang",
+    "nama": "Kacang Panjang",
+    "nama_ilmiah": "Vigna unguiculata subsp. sesquipedalis",
+    "tipe_komoditas": "kacang-kacangan",
+    "toleransi_banjir": "Rendah",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 55,
+    "prioritas": "Tinggi",
+    "catatan": "Pertumbuhan kerdil pada genangan 24-48 jam. Rentan penyakit jamur akar.",
+    "main_impacts": [
+      "Pertumbuhan menjadi kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Memicu ledakan penyakit jamur patogen tanah seperti Phytophthora dan Pythium",
+      "Tanaman mulai menunjukkan stres perakaran akibat mulai kehabisan oksigen",
+      "Daun bagian bawah akan sedikit melungkur ke bawah dan layu"
+    ],
+    "damage_symptoms": [
+      "Pertumbuhan kerdil",
+      "Bunga dan bakal buah rontok massal",
+      "Serangan jamur patogen tanah (Phytophthora, Pythium)",
+      "Stres perakaran",
+      "Daun bagian bawah melungkur dan layu"
+    ]
+  },
+  {
+    "id": "wortel",
+    "nama": "Wortel",
+    "nama_ilmiah": "Daucus carota subsp. sativus",
+    "tipe_komoditas": "sayuran_umbi",
+    "toleransi_banjir": "Sedang",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 90,
+    "prioritas": "Sedang",
+    "catatan": "Kualitas umbi menurun drastis pada genangan 48-72 jam. Umbi busuk atau pecah.",
+    "main_impacts": [
+      "Kualitas umbi atau buah menurun drastis (umbi membusuk atau pecah di dalam tanah)",
+      "Daun bagian bawah rontok",
+      "Tanaman masih punya peluang pulih jika air segera surut",
+      "Tanaman memiliki mekanisme bertahan yang lebih baik (mampu memperlambat metabolisme akar untuk menghemat energi)",
+      "Genangan mendekati 3 hari merusak kualitas fisik umbi menjadi busuk, pecah-pecah (cracking), atau bentuk abnormal"
+    ],
+    "damage_symptoms": [
+      "Umbi membusuk atau pecah di dalam tanah",
+      "Daun bagian bawah rontok",
+      "Kualitas umbi menurun drastis",
+      "Busuk, pecah-pecah (cracking), bentuk abnormal"
+    ]
+  },
+  {
+    "id": "lobak",
+    "nama": "Lobak",
+    "nama_ilmiah": "Raphanus sativus",
+    "tipe_komoditas": "sayuran_umbi",
+    "toleransi_banjir": "Sedang",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 50,
+    "prioritas": "Rendah",
+    "catatan": "Kualitas umbi menurun drastis pada genangan 48-72 jam. Umbi busuk atau pecah.",
+    "main_impacts": [
+      "Kualitas umbi atau buah menurun drastis (umbi membusuk atau pecah di dalam tanah)",
+      "Daun bagian bawah rontok",
+      "Tanaman masih punya peluang pulih jika air segera surut",
+      "Tanaman memiliki mekanisme bertahan yang lebih baik (mampu memperlambat metabolisme akar untuk menghemat energi)",
+      "Genangan mendekati 3 hari merusak kualitas fisik umbi menjadi busuk, pecah-pecah (cracking), atau bentuk abnormal"
+    ],
+    "damage_symptoms": [
+      "Umbi membusuk atau pecah di dalam tanah",
+      "Daun bagian bawah rontok",
+      "Kualitas umbi menurun drastis",
+      "Busuk, pecah-pecah (cracking), bentuk abnormal"
+    ]
+  },
+  {
+    "id": "labu_siam",
+    "nama": "Labu Siam",
+    "nama_ilmiah": "Sechium edule",
+    "tipe_komoditas": "sayuran_buah",
+    "toleransi_banjir": "Sedang",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 90,
+    "prioritas": "Sedang",
+    "catatan": "Kualitas buah menurun drastis pada genangan 48-72 jam. Buah busuk atau pecah.",
+    "main_impacts": [
+      "Kualitas umbi atau buah menurun drastis (umbi membusuk atau pecah di dalam tanah)",
+      "Daun bagian bawah rontok",
+      "Tanaman masih punya peluang pulih jika air segera surut",
+      "Tanaman memiliki mekanisme bertahan yang lebih baik (mampu memperlambat metabolisme akar untuk menghemat energi)",
+      "Genangan mendekati 3 hari merusak kualitas fisik umbi menjadi busuk, pecah-pecah (cracking), atau bentuk abnormal"
+    ],
+    "damage_symptoms": [
+      "Buah membusuk atau pecah",
+      "Daun bagian bawah rontok",
+      "Kualitas buah menurun drastis",
+      "Busuk, pecah-pecah (cracking), bentuk abnormal"
+    ]
+  },
+  {
+    "id": "buncis",
+    "nama": "Buncis",
+    "nama_ilmiah": "Phaseolus vulgaris",
+    "tipe_komoditas": "kacang-kacangan",
+    "toleransi_banjir": "Sedang",
+    "risiko_optimal": "Sedang",
+    "kebutuhan_drainase": "Sedang",
+    "durasi_tanam_hari": 60,
+    "prioritas": "Sedang",
+    "catatan": "Kualitas buah menurun drastis pada genangan 48-72 jam. Buah busuk atau pecah.",
+    "main_impacts": [
+      "Kualitas umbi atau buah menurun drastis (umbi membusuk atau pecah di dalam tanah)",
+      "Daun bagian bawah rontok",
+      "Tanaman masih punya peluang pulih jika air segera surut",
+      "Tanaman memiliki mekanisme bertahan yang lebih baik (mampu memperlambat metabolisme akar untuk menghemat energi)",
+      "Genangan mendekati 3 hari merusak kualitas fisik umbi menjadi busuk, pecah-pecah (cracking), atau bentuk abnormal"
+    ],
+    "damage_symptoms": [
+      "Buah membusuk atau pecah",
+      "Daun bagian bawah rontok",
+      "Kualitas buah menurun drastis",
+      "Busuk, pecah-pecah (cracking), bentuk abnormal"
+    ]
+  },
+  {
+    "id": "kangkung_air",
+    "nama": "Kangkung Air",
     "nama_ilmiah": "Ipomoea aquatica",
     "tipe_komoditas": "sayuran_daun",
     "toleransi_banjir": "Sangat Tinggi",
@@ -9,175 +385,81 @@
     "kebutuhan_drainase": "Minimal",
     "durasi_tanam_hari": 25,
     "prioritas": "Sangat Tinggi",
-    "catatan": "Semi-aquatic; tumbuh subur di kondisi tergenang. Ideal untuk area rawan banjir."
+    "catatan": "Tanaman akuatik dengan jaringan aerenkim. Tumbuh optimal di lahan tergenang permanen.",
+    "main_impacts": [
+      "Tanaman tetap tumbuh optimal karena memiliki struktur anatomi khusus seperti jaringan aerenkim (rongga udara) yang mampu menyalurkan oksigen dari daun langsung ke akar",
+      "Kelompok ini justru membutuhkan kondisi tanah yang jenuh air atau tergenang permanen untuk mencapai pertumbuhan maksimal",
+      "Genangan air tinggi tidak dianggap sebagai cekaman, melainkan lingkungan tumbuh ideal",
+      "Akar sangat efektif mengambil oksigen yang terlarut di dalam air"
+    ],
+    "damage_symptoms": [
+      "Tidak menunjukkan gejala kerusakan berarti pada genangan",
+      "Tumbuh optimal di lahan tergenang permanen"
+    ]
   },
   {
-    "id": "bayam",
-    "nama": "Bayam",
-    "nama_ilmiah": "Amaranthus tricolor",
+    "id": "genjer",
+    "nama": "Genjer",
+    "nama_ilmiah": "Limnocharis flava",
     "tipe_komoditas": "sayuran_daun",
-    "toleransi_banjir": "Tinggi",
-    "risiko_optimal": "Sedang",
-    "kebutuhan_drainase": "Rendah",
-    "durasi_tanam_hari": 30,
-    "prioritas": "Sangat Tinggi",
-    "catatan": "Toleran genangan singkat. Siklus panen cepat mengurangi paparan risiko."
-  },
-  {
-    "id": "sawi",
-    "nama": "Sawi Hijau",
-    "nama_ilmiah": "Brassica juncea",
-    "tipe_komoditas": "sayuran_daun",
-    "toleransi_banjir": "Tinggi",
-    "risiko_optimal": "Sedang",
-    "kebutuhan_drainase": "Rendah",
-    "durasi_tanam_hari": 35,
-    "prioritas": "Tinggi",
-    "catatan": "Toleran kondisi lembab. Siklus pendek cocok untuk periode basah."
-  },
-  {
-    "id": "selada",
-    "nama": "Selada",
-    "nama_ilmiah": "Lactuca sativa",
-    "tipe_komoditas": "sayuran_daun",
-    "toleransi_banjir": "Sedang",
-    "risiko_optimal": "Rendah",
-    "kebutuhan_drainase": "Sedang",
+    "toleransi_banjir": "Sangat Tinggi",
+    "risiko_optimal": "Tinggi",
+    "kebutuhan_drainase": "Minimal",
     "durasi_tanam_hari": 40,
-    "prioritas": "Sedang",
-    "catatan": "Memerlukan tanah berdrainase baik. Rentan busuk akar saat tergenang lama."
-  },
-  {
-    "id": "cabai_rawit",
-    "nama": "Cabai Rawit",
-    "nama_ilmiah": "Capsicum frutescens",
-    "tipe_komoditas": "sayuran_buah",
-    "toleransi_banjir": "Sedang",
-    "risiko_optimal": "Rendah",
-    "kebutuhan_drainase": "Tinggi",
-    "durasi_tanam_hari": 90,
     "prioritas": "Tinggi",
-    "catatan": "Nilai ekonomi tinggi. Perlu bedengan tinggi di area rawan banjir."
+    "catatan": "Tanaman akuatik dengan jaringan aerenkim. Tumbuh optimal di lahan tergenang permanen.",
+    "main_impacts": [
+      "Tanaman tetap tumbuh optimal karena memiliki struktur anatomi khusus seperti jaringan aerenkim (rongga udara) yang mampu menyalurkan oksigen dari daun langsung ke akar",
+      "Kelompok ini justru membutuhkan kondisi tanah yang jenuh air atau tergenang permanen untuk mencapai pertumbuhan maksimal",
+      "Genangan air tinggi tidak dianggap sebagai cekaman, melainkan lingkungan tumbuh ideal",
+      "Akar sangat efektif mengambil oksigen yang terlarut di dalam air"
+    ],
+    "damage_symptoms": [
+      "Tidak menunjukkan gejala kerusakan berarti pada genangan",
+      "Tumbuh optimal di lahan tergenang permanen"
+    ]
   },
   {
-    "id": "cabai_merah",
-    "nama": "Cabai Merah",
-    "nama_ilmiah": "Capsicum annuum",
-    "tipe_komoditas": "sayuran_buah",
-    "toleransi_banjir": "Sedang",
-    "risiko_optimal": "Rendah",
-    "kebutuhan_drainase": "Tinggi",
-    "durasi_tanam_hari": 100,
+    "id": "selada_air",
+    "nama": "Selada Air",
+    "nama_ilmiah": "Nasturtium officinale",
+    "tipe_komoditas": "sayuran_daun",
+    "toleransi_banjir": "Tinggi",
+    "risiko_optimal": "Tinggi",
+    "kebutuhan_drainase": "Minimal",
+    "durasi_tanam_hari": 30,
     "prioritas": "Tinggi",
-    "catatan": "Penting secara ekonomi. Risiko penyakit akar meningkat saat genangan >24 jam."
-  },
-  {
-    "id": "tomat",
-    "nama": "Tomat",
-    "nama_ilmiah": "Solanum lycopersicum",
-    "tipe_komoditas": "sayuran_buah",
-    "toleransi_banjir": "Rendah",
-    "risiko_optimal": "Rendah",
-    "kebutuhan_drainase": "Tinggi",
-    "durasi_tanam_hari": 80,
-    "prioritas": "Sedang",
-    "catatan": "Sangat sensitif terhadap genangan. Kekurangan oksigen akar dalam hitungan jam."
-  },
-  {
-    "id": "terong",
-    "nama": "Terong",
-    "nama_ilmiah": "Solanum melongena",
-    "tipe_komoditas": "sayuran_buah",
-    "toleransi_banjir": "Sedang",
-    "risiko_optimal": "Sedang",
-    "kebutuhan_drainase": "Sedang",
-    "durasi_tanam_hari": 70,
-    "prioritas": "Sedang",
-    "catatan": "Toleransi banjir sedang. Dapat bertahan genangan singkat dengan pemulihan drainase."
-  },
-  {
-    "id": "mentimun",
-    "nama": "Mentimun",
-    "nama_ilmiah": "Cucumis sativus",
-    "tipe_komoditas": "sayuran_buah",
-    "toleransi_banjir": "Sedang",
-    "risiko_optimal": "Rendah",
-    "kebutuhan_drainase": "Sedang",
-    "durasi_tanam_hari": 45,
-    "prioritas": "Sedang",
-    "catatan": "Siklus pendek mengurangi paparan banjir. Perlu drainase tapi toleran kelembaban."
-  },
-  {
-    "id": "kacang_panjang",
-    "nama": "Kacang Panjang",
-    "nama_ilmiah": "Vigna unguiculata subsp. sesquipedalis",
-    "tipe_komoditas": "kacang-kacangan",
-    "toleransi_banjir": "Sedang",
-    "risiko_optimal": "Sedang",
-    "kebutuhan_drainase": "Sedang",
-    "durasi_tanam_hari": 55,
-    "prioritas": "Tinggi",
-    "catatan": "Tipe merambat menjaga polong di atas air. Toleransi sedang terhadap tanah basah."
-  },
-  {
-    "id": "pare",
-    "nama": "Pare",
-    "nama_ilmiah": "Momordica charantia",
-    "tipe_komoditas": "sayuran_buah",
-    "toleransi_banjir": "Sedang",
-    "risiko_optimal": "Sedang",
-    "kebutuhan_drainase": "Sedang",
-    "durasi_tanam_hari": 50,
-    "prioritas": "Sedang",
-    "catatan": "Tanaman merambat; buah di atas permukaan tanah. Toleransi tanah basah sedang."
-  },
-  {
-    "id": "melon",
-    "nama": "Melon",
-    "nama_ilmiah": "Cucumis melo",
-    "tipe_komoditas": "buah",
-    "toleransi_banjir": "Sangat Rendah",
-    "risiko_optimal": "Rendah",
-    "kebutuhan_drainase": "Sangat Tinggi",
-    "durasi_tanam_hari": 70,
-    "prioritas": "Rendah",
-    "catatan": "Sangat sensitif genangan. Hanya cocok saat risiko rendah dengan drainase sempurna."
-  },
-  {
-    "id": "semangka",
-    "nama": "Semangka",
-    "nama_ilmiah": "Citrullus lanatus",
-    "tipe_komoditas": "buah",
-    "toleransi_banjir": "Sangat Rendah",
-    "risiko_optimal": "Rendah",
-    "kebutuhan_drainase": "Sangat Tinggi",
-    "durasi_tanam_hari": 75,
-    "prioritas": "Rendah",
-    "catatan": "Buah menyentuh tanah sangat rentan busuk. Memerlukan kondisi kering."
-  },
-  {
-    "id": "jagung_manis",
-    "nama": "Jagung Manis",
-    "nama_ilmiah": "Zea mays var. saccharata",
-    "tipe_komoditas": "sayuran_serealia",
-    "toleransi_banjir": "Rendah",
-    "risiko_optimal": "Rendah",
-    "kebutuhan_drainase": "Tinggi",
-    "durasi_tanam_hari": 70,
-    "prioritas": "Rendah",
-    "catatan": "Sistem akar sensitif kondisi anaerob. Hindari penanaman saat risiko tinggi."
+    "catatan": "Tanaman akuatik. Bertahan pada genangan >72 jam tanpa busuk akar berarti.",
+    "main_impacts": [
+      "Tanaman tetap tumbuh optimal karena memiliki struktur anatomi khusus seperti jaringan aerenkim (rongga udara) yang mampu menyalurkan oksigen dari daun langsung ke akar",
+      "Tanaman mampu bertahan dari genangan air yang tinggi dan lama tanpa mengalami pembusukan akar yang berarti",
+      "Selama pucuk atau daun atasnya tidak tenggelam sepenuhnya, tanaman ini akan tetap aktif berfotosintesis dan menyerap nutrisi dari air genangan"
+    ],
+    "damage_symptoms": [
+      "Tidak menunjukkan gejala kerusakan berarti pada genangan hingga 3-7 hari",
+      "Pucuk atau daun atas yang tenggelam sepenuhnya dapat menyebabkan kematian"
+    ]
   },
   {
     "id": "talas",
     "nama": "Talas",
     "nama_ilmiah": "Colocasia esculenta",
     "tipe_komoditas": "umbi",
-    "toleransi_banjir": "Sangat Tinggi",
+    "toleransi_banjir": "Tinggi",
     "risiko_optimal": "Tinggi",
     "kebutuhan_drainase": "Minimal",
     "durasi_tanam_hari": 180,
     "prioritas": "Sangat Tinggi",
-    "catatan": "Spesies lahan basah yang adaptif terhadap tanah jenuh air. Cocok untuk zona banjir."
+    "catatan": "Tanaman lahan basah. Bertahan pada genangan >72 jam tanpa busuk akar berarti.",
+    "main_impacts": [
+      "Tanaman tetap tumbuh optimal karena memiliki struktur anatomi khusus seperti jaringan aerenkim (rongga udara) yang mampu menyalurkan oksigen dari daun langsung ke akar",
+      "Tanaman mampu bertahan dari genangan air yang tinggi dan lama tanpa mengalami pembusukan akar yang berarti",
+      "Selama pucuk atau daun atasnya tidak tenggelam sepenuhnya, tanaman ini akan tetap aktif berfotosintesis dan menyerap nutrisi dari air genangan"
+    ],
+    "damage_symptoms": [
+      "Tidak menunjukkan gejala kerusakan berarti pada genangan hingga 3-7 hari",
+      "Pucuk atau daun atas yang tenggelam sepenuhnya dapat menyebabkan kematian"
+    ]
   },
   {
     "id": "seledri",
@@ -185,22 +467,59 @@
     "nama_ilmiah": "Apium graveolens",
     "tipe_komoditas": "sayuran_daun",
     "toleransi_banjir": "Sedang",
-    "risiko_optimal": "Rendah",
+    "risiko_optimal": "Sedang",
     "kebutuhan_drainase": "Sedang",
     "durasi_tanam_hari": 60,
     "prioritas": "Sedang",
-    "catatan": "Suka tanah lembab tapi tidak tergenang. Kebutuhan drainase sedang."
+    "catatan": "Memperlambat metabolisme akar untuk bertahan pada genangan 48-72 jam.",
+    "main_impacts": [
+      "Tanaman memiliki mekanisme bertahan yang sedikit lebih baik (mampu memperlambat metabolisme akar untuk menghemat energi)",
+      "Kualitas fisik menurun pada genangan mendekati 3 hari"
+    ],
+    "damage_symptoms": [
+      "Kualitas fisik menurun",
+      "Busuk atau kerusakan jaringan pada genangan berkepanjangan"
+    ]
   },
   {
-    "id": "kemangi",
-    "nama": "Kemangi",
-    "nama_ilmiah": "Ocimum basilicum",
-    "tipe_komoditas": "herba",
-    "toleransi_banjir": "Sedang",
-    "risiko_optimal": "Rendah",
-    "kebutuhan_drainase": "Sedang",
-    "durasi_tanam_hari": 35,
-    "prioritas": "Sedang",
-    "catatan": "Herba cepat tumbuh. Toleran kelembaban tapi perlu drainase tanah."
+    "id": "pakis_sayur",
+    "nama": "Pakis Sayur",
+    "nama_ilmiah": "Diplazium esculentum",
+    "tipe_komoditas": "sayuran_daun",
+    "toleransi_banjir": "Tinggi",
+    "risiko_optimal": "Tinggi",
+    "kebutuhan_drainase": "Rendah",
+    "durasi_tanam_hari": 45,
+    "prioritas": "Tinggi",
+    "catatan": "Tanaman toleran genangan tinggi. Bertahan >72 jam (3-7 hari) tanpa busuk akar berarti.",
+    "main_impacts": [
+      "Tanaman mampu bertahan dari genangan air yang tinggi dan lama tanpa mengalami pembusukan akar yang berarti",
+      "Selama pucuk atau daun atasnya tidak tenggelam sepenuhnya, tanaman ini akan tetap aktif berfotosintesis dan menyerap nutrisi dari air genangan"
+    ],
+    "damage_symptoms": [
+      "Tidak menunjukkan gejala kerusakan berarti pada genangan hingga 3-7 hari",
+      "Pucuk atau daun atas yang tenggelam sepenuhnya dapat menyebabkan kematian"
+    ]
+  },
+  {
+    "id": "semanggi",
+    "nama": "Semanggi",
+    "nama_ilmiah": "Marsilea crenata",
+    "tipe_komoditas": "sayuran_daun",
+    "toleransi_banjir": "Sangat Tinggi",
+    "risiko_optimal": "Tinggi",
+    "kebutuhan_drainase": "Minimal",
+    "durasi_tanam_hari": 30,
+    "prioritas": "Tinggi",
+    "catatan": "Vegetasi akuatik. Membutuhkan genangan permanen untuk pertumbuhan maksimal.",
+    "main_impacts": [
+      "Kelompok ini justru membutuhkan kondisi tanah yang jenuh air atau tergenang permanen untuk mencapai pertumbuhan maksimal",
+      "Genangan air tinggi tidak dianggap sebagai cekaman, melainkan lingkungan tumbuh ideal",
+      "Akar sangat efektif mengambil oksigen yang terlarut di dalam air"
+    ],
+    "damage_symptoms": [
+      "Tidak menunjukkan gejala kerusakan pada genangan",
+      "Membutuhkan genangan permanen untuk pertumbuhan maksimal"
+    ]
   }
 ]

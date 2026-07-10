@@ -13,10 +13,17 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
+ROOT_DIR = Path(__file__).resolve().parents[1]
+ENV_PATH = ROOT_DIR / ".env"
+
+
 @lru_cache(maxsize=1)
-def load_backend_environment() -> None:
-    root_dir = Path(__file__).resolve().parents[1]
-    load_dotenv(dotenv_path=root_dir / ".env", override=False)
+def load_backend_environment() -> bool:
+    """Load the root .env before any configuration value is read."""
+    return load_dotenv(dotenv_path=ENV_PATH, override=False)
+
+
+load_backend_environment()
 
 
 # ── HTTP timeout defaults (overridable via env) ──────────────────────────
@@ -40,6 +47,17 @@ OPENMETEO_READ_TIMEOUT: int = _int_env("OPENMETEO_READ_TIMEOUT", 10)
 # Supabase Auth
 AUTH_CONNECT_TIMEOUT: int = _int_env("AUTH_CONNECT_TIMEOUT", 3)
 AUTH_READ_TIMEOUT: int = _int_env("AUTH_READ_TIMEOUT", 15)
+
+# ── Feature flags ────────────────────────────────────────────────────────
+def is_knowledge_recommendation_enabled() -> bool:
+    """Read the KB recommendation feature flag at runtime."""
+    load_backend_environment()
+    return os.getenv("USE_KNOWLEDGE_RECOMMENDATION", "false").lower() in (
+        "1", "true", "yes"
+    )
+
+
+USE_KNOWLEDGE_RECOMMENDATION: bool = is_knowledge_recommendation_enabled()
 
 # ── Connection pool defaults ─────────────────────────────────────────────
 POOL_CONNECTIONS: int = _int_env("HTTP_POOL_CONNECTIONS", 10)

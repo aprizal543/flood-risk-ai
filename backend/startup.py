@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class AppStartup:
-    """Orchestrates eager loading of ML assets and warm-up prediction.
+    """Orchestrates eager loading of ML assets, knowledge base, and warm-up prediction.
 
     Usage:
         startup = AppStartup()
@@ -25,6 +25,9 @@ class AppStartup:
     def __init__(self) -> None:
         self._ready: bool = False
         self._elapsed_ms: float = 0.0
+        self._kb: object = None
+        self._decision_engine: object = None
+        self._recommendation_service: object = None
 
     @property
     def is_ready(self) -> bool:
@@ -34,8 +37,20 @@ class AppStartup:
     def elapsed_ms(self) -> float:
         return self._elapsed_ms
 
+    @property
+    def knowledge_base(self) -> object:
+        return self._kb
+
+    @property
+    def decision_engine(self) -> object:
+        return self._decision_engine
+
+    @property
+    def recommendation_service(self) -> object:
+        return self._recommendation_service
+
     def warm_up(self) -> None:
-        """Execute warm-up sequence: imports, model loading, warm-up predict.
+        """Execute warm-up sequence: imports, model loading, KB loading, warm-up predict.
 
         Raises:
             Exception: Re-raises any error from loading or prediction so that
@@ -65,7 +80,18 @@ class AppStartup:
         from ml.recommendation.mitigation import _load_rules
         _load_rules()
 
-        # 6. Warm-up prediction – cold-run through the full RF pipeline
+        # 6. Initialize Knowledge Base (new KB-DSS layer)
+        from backend.knowledge import KnowledgeBase
+        self._kb = KnowledgeBase()
+        self._kb.initialize()
+
+        # 7. Initialize Decision Engine (Sprint KB3)
+        from backend.decision import DecisionEngine, KnowledgeRecommendationService
+        self._decision_engine = DecisionEngine(knowledge_base=self._kb)
+        self._decision_engine.initialize()
+        self._recommendation_service = KnowledgeRecommendationService(self._decision_engine)
+
+        # 8. Warm-up prediction – cold-run through the full RF pipeline
         from ml.predict.preprocess import get_feature_list, prepare_dataframe
         from ml.predict.random_forest import predict_rf
         features = get_feature_list()

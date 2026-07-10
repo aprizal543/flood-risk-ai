@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Droplets, Thermometer, Wind, ShieldAlert, AlertTriangle, Lightbulb, Search, ChevronDown, CheckCircle2 } from "lucide-react";
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, BarChart, Bar, XAxis, YAxis, Cell, Tooltip } from "recharts";
 import { LoadingSkeleton, ErrorState } from "@/components/shared";
+import { RecommendationSection } from "@/components/recommendation";
 import type { PrediksiRealtimeResponse, Rekomendasi } from "@/types/api";
 import { REALTIME_LABELS, formatNoDecimal, getRealtimeDisplayValues } from "@/lib/realtime-presentation";
 
@@ -147,28 +148,37 @@ export function DashboardPanel({ data, isLoading, error, onRetry }: DashboardPan
         </div>
       </motion.div>
 
-      {/* Section 4: Top 5 Recommendation Chart */}
-      <motion.div {...fadeUp}>
-        <SectionHeader title="Rekomendasi Komoditas" subtitle="Top 5 komoditas berdasarkan kesesuaian kondisi saat ini." />
-        <div className="bg-[var(--bg-card)] rounded-[var(--radius-card)] border border-[var(--border)] p-4">
-          <ResponsiveContainer width="100%" height={160}>
-            <BarChart data={barData} layout="vertical" margin={{ left: 4, right: 12, top: 4, bottom: 4 }}>
-              <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 9, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} />
-              <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "var(--text-primary)" }} width={80} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 12, fontSize: 10 }} />
-              <Bar dataKey="score" radius={[0, 8, 8, 0]} animationDuration={800}>
-                {barData.map((_, i) => <Cell key={i} fill={`hsl(${145 - i * 10}, 70%, ${50 + i * 5}%)`} />)}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </motion.div>
+      {/* Section 4: KB-DSS Recommendation (or Legacy fallback) */}
+      {data.knowledge_recommendation ? (
+        <motion.div {...fadeUp}>
+          <RecommendationSection knowledgeRecommendation={data.knowledge_recommendation} />
+        </motion.div>
+      ) : (
+        <>
+          {/* Legacy: Top 5 Recommendation Chart */}
+          <motion.div {...fadeUp}>
+            <SectionHeader title="Rekomendasi Komoditas" subtitle="Top 5 komoditas berdasarkan kesesuaian kondisi saat ini." />
+            <div className="bg-[var(--bg-card)] rounded-[var(--radius-card)] border border-[var(--border)] p-4">
+              <ResponsiveContainer width="100%" height={160}>
+                <BarChart data={barData} layout="vertical" margin={{ left: 4, right: 12, top: 4, bottom: 4 }}>
+                  <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 9, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} />
+                  <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "var(--text-primary)" }} width={80} axisLine={false} tickLine={false} />
+                  <Tooltip contentStyle={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 12, fontSize: 10 }} />
+                  <Bar dataKey="score" radius={[0, 8, 8, 0]} animationDuration={800}>
+                    {barData.map((_, i) => <Cell key={i} fill={`hsl(${145 - i * 10}, 70%, ${50 + i * 5}%)`} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </motion.div>
 
-      {/* Section 5: Recommendation Details Accordion */}
-      <motion.div {...fadeUp}>
-        <SectionHeader title="Detail Rekomendasi Komoditas" subtitle="Penjelasan lengkap kesesuaian masing-masing komoditas." />
-        <RecommendationAccordion items={data.rekomendasi} />
-      </motion.div>
+          {/* Legacy: Recommendation Details Accordion */}
+          <motion.div {...fadeUp}>
+            <SectionHeader title="Detail Rekomendasi Komoditas" subtitle="Penjelasan lengkap kesesuaian masing-masing komoditas." />
+            <RecommendationAccordion items={data.rekomendasi} />
+          </motion.div>
+        </>
+      )}
 
       {/* Section 6: Mitigation Timeline */}
       <motion.div {...fadeUp}>
